@@ -1,13 +1,10 @@
 "use client"
 
 import React, { useState } from 'react';
-import GlareHover from './GlareHover';
 import { Highlighter } from "@/components/ui/highlighter";
 import { InteractiveGridPattern } from "@/components/ui/interactive-grid-pattern";
 import { cn } from "@/lib/utils";
-
-
-// --- 1. Import your project images ---
+import { ExternalLink, Github } from 'lucide-react';
 
 import project1Img from '../assets/projects/project1.png';
 import project2Img from '../assets/projects/project2.png';
@@ -18,235 +15,290 @@ import project6Img from '../assets/projects/project6.png';
 import project7Img from '../assets/projects/project7.png';
 import project8Img from '../assets/projects/project8.png';
 import project9Img from '../assets/projects/project9.png';
-import { Truck } from 'lucide-react';
 
-// --- Data for the projects ---
-const projectData = [
-    {
+const GITHUB_USERNAME = 'kapildev1012';
+
+const projectData = [{
         title: 'Sahityaa Sangamm',
-        description: 'A modern e-commerce platform built with Blade and Laravel.',
-        // Use your Cloudinary video URL here:
+        description: 'A modern e-commerce platform built with Blade and Laravel with full payment integration.',
         videoUrl: 'https://res.cloudinary.com/dktapziq9/video/upload/v1764394626/1764393871242766_dqfnqn.mp4',
-        imageUrl: project1Img, // optional fallback
+        imageUrl: project1Img,
         liveUrl: 'https://sahityaasangamm.in',
         repoUrl: '#',
         tags: ['Blade', 'Laravel', 'MySQL'],
     },
     {
-        title: 'Portfolio Website',
-        description: 'My personal portfolio website built with React and Tailwind CSS.',
-        videoUrl: 'https://res.cloudinary.com/dktapziq9/video/upload/v1764395075/1764395026924189_ij9257.mov',
-        imageUrl: project7Img,
-        liveUrl: 'https://ashifelahi.netlify.app',
-        repoUrl: 'https://github.com/Deadcoder001/React-Personal-Portfolio.git',
-        tags: ['React', 'Tailwind CSS', 'GSAP', 'Spline', 'Framer Motion', 'Lenis'],
+        title: 'AI Attendance & Surveillance',
+        description: 'Professional facial recognition system for automated logging and real-time security tracking.',
+        imageUrl: project4Img,
+        liveUrl: '#',
+        repoUrl: 'https://github.com/kapildev1012',
+        tags: ['Python', 'OpenCV', 'AI / ML', 'React'],
     },
     {
-        title: 'ONS Trading Application',
-        description: 'A real-time trading application using Django and Bootstrap 5.',
-        videoUrl: 'https://res.cloudinary.com/dktapziq9/video/upload/v1764395357/1764395325884939_lrg7f4.mp4',
+        title: 'Wellfire Ecommerce',
+        description: 'A high-performance MERN stack storefront built for Zippin clients.',
+        imageUrl: project3Img,
+        liveUrl: 'https://wellfire-new2.vercel.app',
+        repoUrl: 'https://github.com/kapildev1012/wellfire.new2',
+        tags: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS'],
+    },
+    {
+        title: 'Gym Management Platform',
+        description: 'Enterprise dashboard for gym owners with automated renewals and membership analytics.',
         imageUrl: project5Img,
-        liveUrl: 'https://ons-trading.onrender.com',
-        repoUrl: 'https://github.com/Deadcoder001/ons_trading.git',
-        tags: ['Django', 'yfinance', 'Bootstrap 5'],
+        liveUrl: '#',
+        repoUrl: 'https://github.com/kapildev1012',
+        tags: ['React', 'Express', 'MySQL', 'Node.js'],
+    },
+    {
+        title: 'Virtual Class Platform',
+        description: 'A collaborative educational tool with real-time video, document sharing, and chat.',
+        imageUrl: project7Img,
+        liveUrl: '#',
+        repoUrl: 'https://github.com/kapildev1012',
+        tags: ['Node.js', 'WebRTC', 'React', 'Socket.io'],
     },
     {
         title: 'Creatorhub',
-        description: 'An Influencer Marketing platform for Creators and brands built with React.',
+        description: 'An Influencer Marketing platform connecting Creators with brands.',
         videoUrl: 'https://res.cloudinary.com/dktapziq9/video/upload/v1764396382/1764396334647746_qruqaf.mp4',
-
         liveUrl: 'https://creatorhub.in',
         repoUrl: '#',
         tags: ['React', 'Node.js', 'MongoDB'],
     },
     {
+        title: 'Hotspot Inventory',
+        description: 'Multi-store inventory management system for food chains with real-time stock tracking.',
+        imageUrl: project8Img,
+        liveUrl: '#',
+        repoUrl: 'https://github.com/kapildev1012',
+        tags: ['React', 'Next.js', 'PostgreSQL'],
+    },
+    {
         title: 'Tea Country',
-        description: 'A Tourist website created with React.',
-        // --- 2. Use the imported variable here ---
+        description: 'A Tourist website for exploring tea estates and travel experiences.',
         imageUrl: project2Img,
         liveUrl: 'https://teacountry.in',
         repoUrl: '#',
-        tags: ['React', 'Vue', 'Tailwind CSS'],
+        tags: ['React', 'Tailwind CSS'],
     },
-    // {
-    //     title: 'MeghaRise Products',
-    //     description: 'A modern e-commerce platform using React (Its Frontend Only For Now).',
-    //     // --- 2. Use the imported variable here ---
-    //     imageUrl: project3Img,
-    //     liveUrl: 'https://meghariseproducts.com',
-    //     repoUrl: '#',
-    //     tags: ['React', 'Vue', 'Tailwind CSS'],
-    // },
     {
         title: 'Scabbard Tech',
-        description: 'A Digital Marketing website built with React, Vue and Tailwind CSS.',
+        description: 'A Digital Marketing agency website with modern animations.',
         videoUrl: 'https://res.cloudinary.com/dktapziq9/video/upload/v1764397211/1764397136159111_zlcckk.mp4',
         liveUrl: 'https://scabbardtech.com',
         repoUrl: '#',
-        tags: ['React', 'Vue', 'Tailwind CSS'],
+        tags: ['React', 'Tailwind CSS', 'Framer Motion'],
     },
-
-        {
-        title: 'Jana Kalyan Swastha sewa',
-        description: 'A Healthcare website built with HTML and php.',
+    {
+        title: 'Healthcare NGO Platform',
+        description: 'A Healthcare NGO website (Jana Kalyan Swastha Sewa) with service booking and donation information.',
         imageUrl: project6Img,
         liveUrl: 'https://jkssewa.org',
         repoUrl: '#',
-        tags: ['HTML', 'CSS', 'JavaScript','PHP', 'MySQL'],
-    },
-    {
-        title: 'Janaewa',
-        description: 'A NGO website built with HTML, CSS and JavaScript.',
-        imageUrl: project8Img,
-        liveUrl: 'https://janasewa.org',
-        repoUrl: '#',
-        tags: ['HTML', 'CSS', 'JavaScript'],
-    },
-        {
-        title: 'Earmacs',
-        description: 'A Hotel Management website built with Wordpress and PHP.',
-        imageUrl: project9Img,
-        liveUrl: 'https://earmacs.com',
-        repoUrl: '#',
-        tags: ['Wordpress', 'PHP'],
+        tags: ['HTML', 'PHP', 'MySQL'],
     },
 ];
 
-// --- Single Project Card Component ---
-const ProjectCard = ({ project }) => (
-    <GlareHover
-        glareColor="#ffffff"
-        glareOpacity={0.3}
-        glareAngle={-30}
-        glareSize={300}
-        transitionDuration={1350}
-        playOnce={true}
-        width="100%"
-        height="100%"
-        background="#fff"
-        borderRadius="16px"
-        className="h-full"
-        style={{ border: '1px solid #e5e7eb' }}
-    >
-        <div className="flex flex-col h-full bg-white rounded-[16px] overflow-hidden">
-            {project.videoUrl ? (
-                <video
-                    src={project.videoUrl}
-                    autoPlay
-                    loop
-                    muted
-                    className="w-full h-1/2 object-cover"
-                    poster={project.imageUrl}
-                />
-            ) : (
-                <img
-                    src={project.imageUrl}
-                    alt={project.title}
-                    className="w-full h-1/2 object-cover"
-                />
-            )}
-            <div className="p-4 flex-grow flex flex-col">
-                <h3 className="text-lg font-bold text-gray-900 mb-1">
-                    {project.title}
-                </h3>
-                <p className="text-gray-600 text-xs mb-2 flex-grow">
-                    {project.description}
-                </p>
-                <div className="flex flex-wrap gap-1 mb-2">
-                    {project.tags.map((tag) => (
-                        <span
-                            key={tag}
-                            className="bg-gray-200 text-gray-800 text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                        >
-                            {tag}
-                        </span>
-                    ))}
-                </div>
-                <div className="flex items-center justify-start space-x-3 mt-auto pt-1">
-                    <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 font-semibold text-xs transition-colors duration-300"
-                    >
-                        Live Demo
-                    </a>
-                    {project.repoUrl && project.repoUrl !== '#' && (
-                        <a
-                            href={project.repoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-gray-600 hover:text-gray-900 font-semibold text-xs transition-colors duration-300"
-                        >
-                            View Code
-                        </a>
-                    )}
-                </div>
-            </div>
-        </div>
-    </GlareHover>
+const TAG_COLORS = {
+    React: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
+    'Node.js': 'bg-green-500/10 text-green-400 border-green-500/20',
+    MongoDB: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+    MySQL: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+    'Tailwind CSS': 'bg-sky-500/10 text-sky-400 border-sky-500/20',
+    Django: 'bg-green-600/10 text-green-300 border-green-600/20',
+    Laravel: 'bg-red-500/10 text-red-400 border-red-500/20',
+    Vue: 'bg-green-500/10 text-green-400 border-green-500/20',
+    GSAP: 'bg-lime-500/10 text-lime-400 border-lime-500/20',
+    Spline: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+    GitHub: 'bg-gray-100 text-gray-600 border-gray-200',
+    default: 'bg-gray-100 text-gray-600 border-gray-200',
+};
+
+const getTagColor = (tag) => TAG_COLORS[tag] || TAG_COLORS.default;
+
+const ProjectCard = ({ project }) => ( <
+    div className = "project-card-premium group h-full flex flex-col" >
+    <
+    div className = "relative overflow-hidden aspect-video bg-slate-950" > {
+        project.videoUrl ? ( <
+            video src = { project.videoUrl }
+            autoPlay loop muted playsInline className = "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            poster = { project.imageUrl }
+            />
+        ) : project.imageUrl ? ( <
+            img src = { project.imageUrl }
+            alt = { project.title }
+            className = "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" /
+            >
+        ) : ( <
+            div className = "w-full h-full flex items-center justify-center bg-slate-900 text-white px-4 text-center" >
+            <
+            div >
+            <
+            p className = "text-sm font-semibold" > GitHub Repository < /p> <
+            p className = "text-xs text-slate-400 mt-2" > { project.title } < /p> <
+            /div> <
+            /div>
+        )
+    }
+
+    <
+    div className = "absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-4 gap-3" >
+    <
+    a href = { project.liveUrl }
+    target = "_blank"
+    rel = "noopener noreferrer"
+    className = "px-4 py-2 bg-white text-black text-xs font-semibold rounded-lg flex items-center gap-1.5 hover:bg-gray-100 transition-colors" >
+    <
+    ExternalLink size = { 14 }
+    />
+    Live Demo <
+    /a> {
+        project.repoUrl && project.repoUrl !== '#' && ( <
+            a href = { project.repoUrl }
+            target = "_blank"
+            rel = "noopener noreferrer"
+            className = "px-4 py-2 bg-white/10 backdrop-blur text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 border border-white/20 hover:bg-white/20 transition-colors" >
+            <
+            Github size = { 14 }
+            />
+            Code <
+            /a>
+        )
+    } <
+    /div> <
+    /div>
+
+    <
+    div className = "p-8 md:p-12 grow flex flex-col" >
+    <
+    h3 className = "text-lg font-bold text-gray-900 mb-1.5" > { project.title } < /h3> <
+    p className = "text-gray-500 text-sm mb-3 grow leading-relaxed" > { project.description } < /p> <
+    div className = "flex flex-wrap gap-1.5" > {
+        project.tags.map((tag) => ( <
+            span key = { tag }
+            className = { `text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${getTagColor(tag)}` } >
+            { tag } <
+            /span>
+        ))
+    } <
+    /div> <
+    /div> <
+    /div>
 );
 
-// --- Main Projects Section Component ---
 export default function Projects() {
     const [showAll, setShowAll] = useState(false);
-    const displayedProjects = showAll ? projectData : projectData.slice(0, 3);
+    const [githubRepos, setGithubRepos] = useState([]);
+    const [githubLoading, setGithubLoading] = useState(true);
+    const [githubError, setGithubError] = useState(null);
 
-    return (
-        <section
-            id="projects"
-            // --- 1. Added bg-white (or bg-background) here ---
-            className="relative w-full text-black py-20 overflow-hidden bg-white"
-        >
-            <InteractiveGridPattern
-                className={cn(
-                    "absolute inset-0 h-full w-full",
-                    "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]"
-                )}
-                // --- 2. Added the missing props from your demo ---
-                width={20}
-                height={20}
-                squares={[80, 80]}
-                // You can set a static color for the squares
-                squaresClassName="fill-gray-100"
-            />
+    React.useEffect(() => {
+        const fetchRepos = async() => {
+            try {
+                const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=12&sort=updated`);
+                if (!response.ok) {
+                    throw new Error(`GitHub API error: ${response.status}`);
+                }
+                const data = await response.json();
+                const repos = data
+                    .filter((repo) => !repo.fork)
+                    .map((repo) => ({
+                        title: repo.name,
+                        description: repo.description || 'GitHub repository',
+                        imageUrl: repo.owner ? .avatar_url || '',
+                        liveUrl: repo.homepage || repo.html_url,
+                        repoUrl: repo.html_url,
+                        tags: [repo.language || 'GitHub'],
+                    }));
+                setGithubRepos(repos);
+            } catch (error) {
+                setGithubError(error.message);
+            } finally {
+                setGithubLoading(false);
+            }
+        };
 
-            <div className="relative z-10 px-2">
-                <div className="text-center mb-12">
-                    <h2 className="text-5xl font-bold font-pixel underline-wavy-yellow inline-block">
-                        <Highlighter action="underline" color="#FFD700">
-                            Projects 🚀
-                        </Highlighter>
-                    </h2>
-                </div>
-                <div className="grid grid-cols-3 gap-6 max-w-screen-lg mx-auto">
-                    {displayedProjects.map((project, index) => (
-                        <div key={index} className="aspect-square">
-                            <ProjectCard project={project} />
-                        </div>
-                    ))}
-                </div>
+        fetchRepos();
+    }, []);
 
-                {/* View More / View Less Button */}
-                <div className="text-center mt-12">
-                    {!showAll && projectData.length > 3 && (
-                        <button
-                            onClick={() => setShowAll(true)}
-                            className="btn"
-                        >
-                            View More
-                        </button>
-                    )}
-                    {showAll && (
-                        <button
-                            onClick={() => setShowAll(false)}
-                            className="btn"
-                        >
-                            View Less
-                        </button>
-                    )}
-                </div>
-            </div>
-        </section>
-    );
-}
+    const projectItems = githubRepos.length ? githubRepos : projectData;
+    const displayedProjects = showAll ? projectItems : projectItems.slice(0, 6);
+
+    return ( <
+            section id = "projects"
+            className = "relative w-full text-black py-20 md:py-28 bg-white min-h-screen" >
+            <
+            InteractiveGridPattern className = {
+                cn(
+                    'absolute inset-0 h-full w-full',
+                    '[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]'
+                )
+            }
+            width = { 20 }
+            height = { 20 }
+            squares = {
+                [80, 80] }
+            squaresClassName = "fill-gray-50" /
+            >
+
+            <
+            div className = "relative z-10 section-wrap" >
+            <
+            div className = "text-center mb-14" >
+            <
+            h2 className = "text-4xl md:text-5xl font-bold inline-block" >
+            <
+            Highlighter action = "underline"
+            color = "#FFD700" >
+            Projects🚀 <
+            /Highlighter> <
+            /h2> <
+            p className = "text-gray-500 mt-4 text-lg max-w-md mx-auto" > {
+                githubRepos.length ?
+                `Latest GitHub repos from @${GITHUB_USERNAME}` :
+                    'A collection of production-grade apps built for real businesses'
+            } <
+            /p> <
+            /div>
+
+            {
+                githubLoading && < div className = "text-center mb-8 text-sm text-gray-500" > Loading GitHub projects… < /div>} {
+                    githubError && < div className = "text-center mb-8 text-sm text-red-500" > Unable to load GitHub projects: { githubError } < /div>}
+
+                    <
+                    div className = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto" > {
+                            displayedProjects.map((project, index) => ( <
+                                div key = { index } >
+                                <
+                                ProjectCard project = { project }
+                                /> <
+                                /div>
+                            ))
+                        } <
+                        /div>
+
+                    <
+                    div className = "text-center mt-12" > {!showAll && projectItems.length > 6 && ( <
+                                button onClick = {
+                                    () => setShowAll(true) }
+                                className = "btn" >
+                                View More <
+                                /button>
+                            )
+                        } {
+                            showAll && ( <
+                                button onClick = {
+                                    () => setShowAll(false) }
+                                className = "btn" >
+                                View Less <
+                                /button>
+                            )
+                        } <
+                        /div> <
+                        /div> <
+                        /section>
+                );
+            }

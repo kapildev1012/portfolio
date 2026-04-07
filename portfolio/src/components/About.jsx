@@ -1,154 +1,264 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
+import { motion, useInView, animate } from 'framer-motion';
+import { Code2, Rocket, Users, Monitor, MapPin, GraduationCap, Briefcase, ArrowRight } from 'lucide-react';
 import { WordRotate } from "@/components/ui/word-rotate";
 import { Highlighter } from "@/components/ui/highlighter";
+import GlareHover from './GlareHover';
+import Magnet from './Magnet';
 
-export default function About() {
-    const aboutMe = [
-        "I craft digital experiences",
-        "I design with purpose",
-        "I code with passion",
-        "I solve problems creatively"
-    ];
-
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [isHovered, setIsHovered] = useState(false);
+function Counter({ value, suffix }) {
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true, margin: '-60px' });
 
     useEffect(() => {
-        const handleMouseMove = (e) => {
-            setMousePosition({ x: e.clientX, y: e.clientY });
-        };
+        if (!inView) return;
 
-        window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, []);
+        const ctrl = animate(0, value, {
+            duration: 1.8,
+            ease: [0.16, 1, 0.3, 1],
+            onUpdate: (v) => {
+                if (ref.current) ref.current.textContent = Math.floor(v) + suffix;
+            },
+        });
 
-    const gradientStyle = {
-        background: 'radial-gradient(circle at 50% 50%, #0f172a 0%, #0a0f1e 50%, #050811 100%)',
-        backgroundSize: '400% 400%',
-        animation: 'gradientBG 15s ease infinite',
-    };
+        return () => ctrl.stop();
+    }, [inView, value, suffix]);
 
-    const particleStyle = (index) => ({
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        width: `${Math.random() * 3 + 1}px`,
-        height: `${Math.random() * 3 + 1}px`,
-        animation: `float ${Math.random() * 10 + 10}s linear infinite`,
-        animationDelay: `${Math.random() * 5}s`,
-        opacity: Math.random() * 0.5 + 0.1,
-    });
+    return <span ref={ref}>0{suffix}</span>;
+}
+
+const STATS = [
+    { icon: Rocket, value: 9, suffix: '+', label: 'Projects' },
+    { icon: Code2, value: 2, suffix: '+', label: 'Years Exp.' },
+    { icon: Monitor, value: 15, suffix: '+', label: 'Technologies' },
+    { icon: Users, value: 5, suffix: '+', label: 'Clients' },
+];
+
+const SKILLS = [
+    'React.js',
+    'Next.js',
+    'Tailwind CSS',
+    'Redux',
+    'Framer Motion',
+    'Node.js',
+    'Express.js',
+    'MongoDB',
+    'MySQL',
+    'Python',
+    'AI/ML',
+];
+
+const fadeUp = {
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
+};
+
+const stagger = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+const GRAD = {
+    background: 'linear-gradient(135deg, #818cf8, #a78bfa, #e879f9)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+};
+
+export default function About() {
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true, margin: '-60px' });
 
     return (
         <section
             id="about"
-            className="relative w-full min-h-screen overflow-hidden bg-gray-900"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            ref={ref}
+            className="relative w-full min-h-screen"
+            style={{ background: 'linear-gradient(160deg, #0c1120 0%, #080d1a 55%, #0a0518 100%)' }}
         >
-            {/* Animated Background */}
-            <motion.div
-                className="absolute inset-0 z-10 w-full h-full"
-                style={gradientStyle}
-                animate={{
-                    backgroundPosition: [
-                        '0% 0%',
-                        '100% 100%',
-                        '0% 100%',
-                        '0% 0%',
-                    ],
-                }}
-                transition={{
-                    duration: 15,
-                    repeat: Infinity,
-                    ease: 'linear',
-                }}
-            >
-                {/* Animated Particles */}
-                {[...Array(30)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="absolute rounded-full bg-white/30"
-                        style={particleStyle(i)}
-                    />
-                ))}
-
-                {/* Subtle Grid Overlay */}
-                <div
-                    className="absolute inset-0 opacity-10"
-                    style={{
-                        backgroundImage: 'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
-                        backgroundSize: '40px 40px',
-                    }}
-                />
-            </motion.div>
-
-            {/* Animated Cursor Light */}
-            <motion.div
-                className="pointer-events-none fixed -left-1/2 -top-1/2 w-full h-full rounded-full mix-blend-overlay"
+            <div
+                className="absolute top-0 left-0 w-[800px] h-[800px] pointer-events-none"
                 style={{
-                    background: 'radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
-                    transform: `translate(${mousePosition.x}px, ${mousePosition.y}px) translate(-50%, -50%)`,
-                    width: '100vw',
-                    height: '100vh',
-                    transition: isHovered ? 'all 0.1s ease-out' : 'all 0.3s ease-out',
-                    scale: isHovered ? 1.2 : 1,
-                    opacity: isHovered ? 0.8 : 0.5,
+                    background: 'radial-gradient(circle at 0 0, rgba(99,102,241,0.18) 0%, transparent 65%)',
+                    filter: 'blur(100px)',
+                }}
+            />
+            <div
+                className="absolute bottom-0 right-0 w-[600px] h-[600px] pointer-events-none"
+                style={{
+                    background: 'radial-gradient(circle at 100% 100%, rgba(168,85,247,0.15) 0%, transparent 65%)',
+                    filter: 'blur(100px)',
+                }}
+            />
+            <div
+                className="absolute inset-0 pointer-events-none opacity-[0.03]"
+                style={{
+                    backgroundImage:
+                        'linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)',
+                    backgroundSize: '80px 80px',
                 }}
             />
 
-            {/* Content */}
-            <div className="relative z-20 flex items-center justify-center w-full h-full p-8 text-center text-white sm:p-16 md:p-24">
-                <div className="max-w-4xl">
-                    <h2 className="mb-8 font-pixel text-4xl font-bold md:text-6xl lg:text-7xl [text-shadow:0_3px_5px_rgb(0_0_0/40%)]">
-                        <Highlighter action="highlight" color="#3b82f6">
-                            About Me
-                        </Highlighter>
-                    </h2>
+            <div className="relative z-10 w-full section-wrap">
+                <motion.div variants={stagger} initial="hidden" animate={inView ? 'show' : 'hidden'} className="mb-20 md:mb-28">
+                    <motion.p variants={fadeUp} className="text-indigo-400 text-xs font-bold tracking-[0.22em] uppercase mb-4">
+                        Get to know me
+                    </motion.p>
+                    <motion.h2 variants={fadeUp} className="text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-none mb-3">
+                        About <span style={GRAD}>Me</span>
+                    </motion.h2>
+                    <motion.p variants={fadeUp} className="text-white/40 text-base max-w-md">
+                        Innovative Full-Stack Software Engineer (MERN) building scalable applications.
+                    </motion.p>
+                </motion.div>
 
-                    <div className="mb-12">
-                        <WordRotate
-                            words={aboutMe}
-                            className="text-2xl md:text-4xl font-bold text-white/90 [text-shadow:0_2px_4px_rgb(0_0_0/40%)]"
-                        />
-                    </div>
+                <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.65, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-3 space-y-8"
+                    >
+                        <div className="space-y-5">
+                            <div className="flex flex-col mb-8">
+                                <h3 className="text-2xl md:text-3xl font-bold text-white leading-snug">
+                                    I am a <span style={GRAD}>Creative</span>
+                                </h3>
+                                <WordRotate
+                                    words={['Full-Stack Engineer', 'MERN Stack Expert', 'Founder at Zippin', 'Tech Solutionist']}
+                                    className="text-3xl md:text-5xl font-extrabold text-white tracking-tight"
+                                    duration={3000}
+                                />
+                            </div>
+                            <div className="space-y-6 text-white/75 leading-[1.8] text-[16px]">
+                                <p>
+                                    I'm a <Highlighter action="underline" color="rgba(129,140,248,0.4)" strokeWidth={2.5}>
+                                        Full-Stack Software Engineer (MERN)
+                                    </Highlighter>{' '}
+                                    with strong expertise in building scalable web applications, e-commerce systems, and enterprise dashboards.
+                                </p>
+                                <p>
+                                    As <Highlighter action="bracket" color="rgba(167,139,250,0.5)" strokeWidth={2}>
+                                        Founder & Lead Developer at Zippin Full-Stack Solutions
+                                    </Highlighter>, I've built multi-store inventory systems for food chains & cafés, gym management platforms with membership tiers, and Amazon-style e-commerce marketplaces.
+                                </p>
+                                <p>
+                                    Currently pursuing <Highlighter action="highlight" color="rgba(139,92,246,0.15)" padding={1}>
+                                        B.Tech in Computer Science & Engineering (2023 - 2027) at HPTU
+                                    </Highlighter>, with proven track record leading college projects including AI attendance systems with facial recognition and virtual class platforms.
+                                </p>
+                            </div>
+                        </div>
 
-                    <div className="max-w-3xl mx-auto text-lg leading-relaxed text-white/90 md:text-xl [text-shadow:0_1px_2px_rgb(0_0_0/40%)]">
-                        <p className="mb-6">
-                            I'm a passionate developer who loves creating beautiful, functional web experiences.
-                            With a keen eye for design and a love for clean code, I bring ideas to life through
-                            thoughtful interfaces and engaging interactions.
-                        </p>
-                        <p className="mb-6">
-                            My journey in web development has taken me through various technologies and frameworks,
-                            always focusing on creating seamless user experiences. I believe in the power of design
-                            to solve problems and the importance of performance and accessibility in every project.
-                        </p>
-                        <p>
-                            When I'm not coding, you can find me exploring new technologies, contributing to open-source
-                            projects, or sharing my knowledge with the developer community.
-                        </p>
-                    </div>
+                        <motion.div variants={stagger} initial="hidden" animate={inView ? 'show' : 'hidden'} className="flex flex-wrap gap-2">
+                            {SKILLS.map((skill) => (
+                                <motion.span
+                                    key={skill}
+                                    variants={fadeUp}
+                                    className="px-3.5 py-1.5 text-xs font-medium rounded-full border border-white/10 text-white/50 bg-white/4 hover:border-indigo-400/30 hover:text-white/75 transition-all duration-200 cursor-default"
+                                >
+                                    {skill}
+                                </motion.span>
+                            ))}
+                        </motion.div>
+
+                        <Magnet magnetStrength={4} padding={40}>
+                            <a
+                                href="#contact"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    const el = document.getElementById('contact');
+                                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                                className="inline-flex items-center gap-2 text-base font-semibold text-indigo-400 hover:text-indigo-300 group transition-colors duration-200"
+                            >
+                                Let's work together
+                                <ArrowRight size={17} className="group-hover:translate-x-1 transition-transform duration-200" />
+                            </a>
+                        </Magnet>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                        transition={{ duration: 0.65, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        className="lg:col-span-2 space-y-6"
+                    >
+                        <GlareHover
+                            width="100%"
+                            height="auto"
+                            borderRadius="24px"
+                            borderColor="rgba(255,255,255,0.08)"
+                            background="rgba(255,255,255,0.03)"
+                            className="w-full"
+                        >
+                            <div className="w-full flex items-start gap-5 p-6 md:p-8 lg:p-10">
+                                <div
+                                    className="w-12 h-12 rounded-xl shrink-0 flex items-center justify-center"
+                                    style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}
+                                >
+                                    <Briefcase className="w-5 h-5 text-white" />
+                                </div>
+                                <div className="min-w-0 flex-1 space-y-2">
+                                    <div className="flex flex-wrap items-center gap-2">
+                                        <span className="text-white text-sm font-semibold">Founder & Lead Dev</span>
+                                        <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                            Live
+                                        </span>
+                                    </div>
+                                    <p className="text-indigo-400 text-xs font-medium">Zippin Full-Stack Solutions</p>
+                                    <p className="text-white/30 text-xs">Jan 2023– Present</p>
+                                </div>
+                            </div>
+                        </GlareHover>
+
+                        <GlareHover
+                            width="100%"
+                            height="auto"
+                            borderRadius="24px"
+                            borderColor="rgba(255,255,255,0.08)"
+                            background="rgba(255,255,255,0.03)"
+                            className="w-full"
+                        >
+                            <div className="w-full flex items-start gap-5 p-6 md:p-8 lg:p-10">
+                                <div
+                                    className="w-12 h-12 rounded-xl shrink-0 flex items-center justify-center"
+                                    style={{ background: 'linear-gradient(135deg, #7c3aed, #c026d3)' }}
+                                >
+                                    <GraduationCap className="w-5 h-5 text-white" />
+                                </div>
+                                <div className="min-w-0 flex-1 space-y-2">
+                                    <p className="text-white text-sm font-semibold">B.Tech— CS & Engineering</p>
+                                    <p className="text-purple-400 text-xs font-medium">HPTU, Himachal Pradesh</p>
+                                    <p className="text-white/30 text-xs">2023– 2027</p>
+                                </div>
+                            </div>
+                        </GlareHover>
+
+                        <GlareHover
+                            width="100%"
+                            height="auto"
+                            borderRadius="24px"
+                            borderColor="rgba(255,255,255,0.08)"
+                            background="rgba(255,255,255,0.03)"
+                            className="w-full"
+                        >
+                            <div className="w-full flex items-center gap-5 p-6 md:p-8 lg:p-10">
+                                <div
+                                    className="w-12 h-12 rounded-xl shrink-0 flex items-center justify-center"
+                                    style={{ background: 'linear-gradient(135deg, #db2777, #be123c)' }}
+                                >
+                                    <MapPin className="w-5 h-5 text-white" />
+                                </div>
+                                <div className="space-y-2">
+                                    <p className="text-white text-sm font-semibold">Based in India</p>
+                                    <p className="text-white/35 text-xs">Himachal Pradesh🇮🇳 · Open to remote</p>
+                                </div>
+                            </div>
+                        </GlareHover>
+                    </motion.div>
                 </div>
             </div>
-
-            <style>{`
-                @keyframes gradientBG {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
-                }
-                @keyframes float {
-                    0% { 
-                        transform: translateY(0) translateX(0) rotate(0deg); 
-                        opacity: 0.1; 
-                    }
-                    100% { 
-                        transform: translateY(-100vh) translateX(20px) rotate(360deg); 
-                        opacity: 0; 
-                    }
-                }
-            `}</style>
         </section>
     );
 }

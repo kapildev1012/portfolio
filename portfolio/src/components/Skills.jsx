@@ -27,17 +27,17 @@ const skillsRow2 = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="w-full bg-white text-black py-24">
-      <div className="container mx-auto text-center">
+    <section id="skills" className="w-full bg-white text-black min-h-screen flex flex-col justify-center">
+      <div className="section-wrap text-center">
         <div className="inline-block mb-12">
-          <h2 className="text-5xl font-bold font-pixel inline-block">
+          <h2 className="text-5xl font-bold inline-block">
             <Highlighter action="underline" color="#FFD700">
               Tech Stack
             </Highlighter>
           </h2>
         </div>
       </div>
-      <div className="relative max-w-screen-lg mx-auto flex flex-col gap-4">
+      <div className="section-wrap flex flex-col gap-4">
         {/* Left Blur */}
         <div className="pointer-events-none absolute left-0 top-0 h-full w-16 z-10"
              style={{

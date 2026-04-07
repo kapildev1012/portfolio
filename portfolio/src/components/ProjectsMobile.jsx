@@ -112,7 +112,7 @@ export default function ProjectsMobile() {
     return (
         <section id="projects-mobile" className="w-full bg-white text-black py-12 px-2">
             <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold font-pixel underline-wavy-yellow inline-block">
+                <h2 className="text-3xl font-bold underline-wavy-yellow inline-block">
                     <Highlighter action="underline" color="#FFD700">
                         Projects 🚀
                     </Highlighter>

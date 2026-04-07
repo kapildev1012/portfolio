@@ -17,7 +17,7 @@ export default function Certifications() {
                 </Highlighter>
               </h2>
             </div>
-            <div className="relative flex max-w-lg mx-auto flex-col items-center justify-center overflow-hidden rounded-lg border bg-background p-4">
+            <div className="relative flex max-w-lg mx-auto flex-col items-center justify-center overflow-hidden rounded-lg border bg-background p-10 md:p-14">
               <Tree
                 className="w-full bg-background overflow-hidden rounded-md"
                 initialExpandedItems={["Certifications", "Cisco", "IBM", "AWS"]}

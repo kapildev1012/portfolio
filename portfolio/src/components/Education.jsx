@@ -4,55 +4,70 @@ import { Highlighter } from "@/components/ui/highlighter";
 
 export default function Education() {
     return (
-        <section id="education" className="w-full bg-white text-black pb-20">
-            <div className="container mx-auto px-4">
+        <section id="education" className="w-full bg-white text-black min-h-screen flex flex-col justify-center">
+            <div className="section-wrap">
                 <div className="text-center">
                     <div className="inline-block mb-12">
-                        <h2 className="text-4xl md:text-5xl font-bold font-pixel">
+                        <h2 className="text-4xl md:text-5xl font-bold">
                             <Highlighter action="underline" color="#FFD700">
                                 Qualifications
                             </Highlighter>
                         </h2>
                     </div>
-                    <div className="relative flex max-w-lg mx-auto flex-col items-center justify-center overflow-hidden rounded-lg border bg-background p-4">
+                    <div className="relative flex max-w-lg mx-auto flex-col items-center justify-center overflow-hidden rounded-lg border bg-background p-10 md:p-14">
                         <Tree
                             className="w-full bg-background overflow-hidden rounded-md"
-                            initialExpandedItems={["Education", "KU", "MC", "BA", "BHS", "Certifications"]}
+                            initialExpandedItems={["Education", "HPTU", "HimXII", "HimX", "Certifications", "Cisco", "IBM", "AWS", "Experience"]}
                         >
-                            <Folder element="My Education" value="Education">
-                                <Folder element="Himachal Pradesh Technical University" value="">
+                            <Folder element="🎓 My Education" value="Education">
+                                <Folder element="Himachal Pradesh Technical University (HPTU)" value="HPTU">
                                     <File value="BTECH">
-                                        <p>Bachelor of Computer Application (2024–2027)</p>
+                                        <p>B.Tech – Computer Science & Engineering (2023–2027)</p>
                                     </File>
                                 </Folder>
-                                <Folder element="Bidyasagar Academy, Howly" value="BA">
-                                    <File value="BA-HS">
-                                        <p>Higher Secondary (2019)</p>
+                                <Folder element="Him Academy Public School, Vikasnagar" value="HimXII">
+                                    <File value="XII">
+                                        <p>Senior Secondary (Class XII), Science (Non-Medical) – 2021</p>
                                     </File>
                                 </Folder>
-                                <Folder element="Barpeta Govt. HS School" value="BHS">
-                                    <File value="BHS-Matric">
-                                        <p>Matriculation (2016)</p>
+                                <Folder element="Him Academy Public School, Vikasnagar" value="HimX">
+                                    <File value="X">
+                                        <p>Secondary (Class X) – 2019</p>
                                     </File>
                                 </Folder>
                             </Folder>
-                            <Folder element="My Certifications" value="Certifications">
-                                <Folder element="Cisco" value="Cisco">
-                                    <File value="Cisco-Intro">
-                                        <p>Introduction to Cybersecurity</p>
+                            <Folder element="🏆 Achievements & Leadership" value="Achievements">
+                                <File value="Hackathon">
+                                    <p>Engineering Day Hackathon Organizer</p>
+                                </File>
+                                <File value="Team-Lead">
+                                    <p>Project Team Lead & Technical Coordinator</p>
+                                </File>
+                            </Folder>
+                            <Folder element="💼 Professional Experience" value="Experience">
+                                <Folder element="Zippin Full-Stack Solutions" value="Zippin">
+                                    <File value="Zippin-Role">
+                                        <p>Founder & Lead Developer (Jan 2023 – Present)</p>
                                     </File>
-                                    <File value="Cisco-Jr">
-                                        <p>Jr. Cybersecurity Analyst</p>
+                                    <File value="Zippin-1">
+                                        <p>Developed 'Hotspot' & 'Wellfire' multi-store inventory systems</p>
+                                    </File>
+                                    <File value="Zippin-2">
+                                        <p>Built a Gym Management Platform with automated renewals</p>
+                                    </File>
+                                    <File value="Zippin-3">
+                                        <p>Full E-Commerce Marketplace with Amazon-style UI</p>
                                     </File>
                                 </Folder>
-                                <Folder element="IBM" value="IBM">
-                                    <File value="IBM-Python">
-                                        <p>Python 101 for Data Science</p>
+                                <Folder element="College Research & Projects" value="Research">
+                                    <File value="AI-Attendance">
+                                        <p>AI Attendance System – Facial Recognition based logging</p>
                                     </File>
-                                </Folder>
-                                <Folder element="AWS" value="AWS">
-                                    <File value="AWS-Cloud">
-                                        <p>Cloud Foundations (AWS Academy Graduate)</p>
+                                    <File value="Face-Recon">
+                                        <p>Face Recognition Surveillance – Real-time tracking</p>
+                                    </File>
+                                    <File value="Virtual-Class">
+                                        <p>Virtual Class Platform – Video + Document collaboration</p>
                                     </File>
                                 </Folder>
                             </Folder>
