@@ -1,7 +1,68 @@
+"use client"
+
 import React, { useState, useEffect } from 'react';
-import { cn } from "@/lib/utils";
-import { GridPattern } from "@/components/ui/grid-pattern";
-import { Send, Mail, Phone, MapPin, Github } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Send, Mail, Phone, MapPin, Github, ArrowUpRight, Activity, Cpu, Sparkles, Terminal, MessageSquare } from 'lucide-react';
+
+const WHATSAPP_NUMBER = '917650965133';
+const GITHUB_USERNAME = 'kapildev1012';
+
+const TableRow = ({ label, index, id, type = "text", value, onChange, placeholder, isTextArea = false }) => {
+  const [isFocused, setIsFocused] = useState(false);
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-12 border-t border-black/5 py-12 md:py-16 transition-all duration-700 items-start group">
+      {/* Label Column */}
+      <div className="md:col-span-3 flex flex-col gap-2 mb-6 md:mb-0">
+        <span className="text-[10px] font-black text-black/20 uppercase tracking-[0.4em]">Index_0{index}</span>
+        <label 
+          htmlFor={id}
+          className="text-sm font-black uppercase tracking-[0.2em] text-black/40 group-hover:text-black transition-colors duration-500"
+        >
+          {label}
+        </label>
+      </div>
+
+      {/* Input Column */}
+      <div className="md:col-span-8 relative">
+        {isTextArea ? (
+          <textarea
+            id={id}
+            name={id}
+            value={value}
+            onChange={onChange}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            placeholder={placeholder}
+            required
+            className="w-full bg-transparent border-none outline-none text-black font-black text-2xl md:text-5xl placeholder:text-black/5 min-h-[160px] resize-none leading-tight tracking-tighter"
+          />
+        ) : (
+          <input
+            id={id}
+            name={id}
+            type={type}
+            value={value}
+            onChange={onChange}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            placeholder={placeholder}
+            required
+            className="w-full bg-transparent border-none outline-none text-black font-black text-2xl md:text-5xl placeholder:text-black/5 leading-tight tracking-tighter"
+          />
+        )}
+        
+        {/* Dynamic Underline */}
+        <div className={`absolute -bottom-4 left-0 h-[2px] bg-black transition-all duration-700 ease-out ${isFocused ? 'w-full opacity-100' : 'w-0 opacity-0'}`} />
+      </div>
+
+      {/* Action Hint */}
+      <div className="md:col-span-1 flex justify-end opacity-0 group-hover:opacity-20 transition-opacity duration-500 pt-2">
+        <ArrowUpRight size={32} strokeWidth={3} />
+      </div>
+    </div>
+  );
+};
 
 export default function ContactForm() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
@@ -9,7 +70,7 @@ export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    fetch('https://api.github.com/repos/Deadcoder001/React-Personal-Portfolio')
+    fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/React-Personal-Portfolio-main`)
       .then(res => res.json())
       .then(data => setStars(data.stargazers_count))
       .catch(() => setStars(null));
@@ -19,176 +80,161 @@ export default function ContactForm() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('https://formspree.io/f/xrbwdkqb', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          message: form.message,
-          _replyto: form.email,
-          _subject: `Portfolio Contact: ${form.name}`,
-        }),
-      });
-      if (response.ok) {
-        setSubmitted(true);
-        setForm({ name: '', email: '', message: '' });
-        setTimeout(() => setSubmitted(false), 5000);
-      }
-    } catch (err) {
-      // Fallback to regular form submission
-      e.target.closest('form')?.submit();
-    }
+    
+    // Construct WhatsApp URL
+    const text = `*SIGNAL_TRANSMISSION_RECEIVED*%0A%0A*Name:* ${form.name}%0A*Email:* ${form.email}%0A*Message:* ${form.message}`;
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+    
+    // Open in new tab
+    window.open(whatsappUrl, '_blank');
+    
+    // Confirmation UI
+    setSubmitted(true);
+    setForm({ name: '', email: '', message: '' });
+    setTimeout(() => setSubmitted(false), 5000);
   };
 
   return (
-    <section
-      id="contact"
-      className="relative w-full overflow-hidden min-h-screen"
-      style={{ background: 'radial-gradient(circle at 50% 30%, #0f172a 0%, #050811 100%)' }}
-    >
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: 'linear-gradient(to right, #fff 1px, transparent 1px), linear-gradient(to bottom, #fff 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-        }}
-      />
+    <section id="contact" className="relative w-full py-48 md:py-80 bg-white text-black overflow-hidden">
+      {/* Background Ambience */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#000_1px,transparent_1px)] [background-size:60px_60px]" />
 
-      <div className="relative z-10 section-wrap py-20 md:py-32">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Let's Work <span className="gradient-text" style={{WebkitTextFillColor: 'transparent'}}>Together</span>
-          </h2>
-          <p className="text-white/50 text-lg max-w-md mx-auto">
-            Have a project in mind? Let's build something amazing.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-5 gap-12 max-w-4xl mx-auto">
-          {/* Left - Contact Info (2 cols) */}
-          <div className="md:col-span-2 flex flex-col gap-6">
-            <div className="glass-card p-10 md:p-12">
-              <h3 className="text-white text-lg font-bold mb-6">Contact Info</h3>
-              <div className="space-y-5">
-                <a href="mailto:kapil16072004@gmail.com" className="flex items-center gap-4 group">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center group-hover:bg-indigo-500/20 transition-colors">
-                    <Mail className="w-5 h-5 text-indigo-400" />
-                  </div>
-                  <div>
-                    <p className="text-white/40 text-xs">Email</p>
-                    <p className="text-white/80 text-sm font-medium group-hover:text-white transition-colors">kapil16072004@gmail.com</p>
-                  </div>
-                </a>
-                <a href="tel:+917650965133" className="flex items-center gap-4 group">
-                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
-                    <Phone className="w-5 h-5 text-purple-400" />
-                  </div>
-                  <div>
-                    <p className="text-white/40 text-xs">Phone</p>
-                    <p className="text-white/80 text-sm font-medium group-hover:text-white transition-colors">+91-7650965133</p>
-                  </div>
-                </a>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-pink-500/10 flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-pink-400" />
-                  </div>
-                  <div>
-                    <p className="text-white/40 text-xs">Location</p>
-                    <p className="text-white/80 text-sm font-medium">Himachal Pradesh, India</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* GitHub Star Button */}
-            <a
-              href="https://github.com/Deadcoder001/React-Personal-Portfolio.git"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-card p-8 flex items-center gap-3 hover:border-yellow-500/30 transition-all group"
+      <div className="relative z-10 section-wrap px-8 md:px-24 max-w-[100rem] mx-auto">
+        
+        {/* Editorial Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-32 md:mb-48">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="flex flex-col"
             >
-              <Github className="w-6 h-6 text-white/60 group-hover:text-white transition-colors" />
-              <div className="flex-1">
-                <p className="text-white text-sm font-medium">Star on GitHub</p>
-                <p className="text-white/40 text-xs">If you like this portfolio!</p>
+              <div className="flex items-center gap-4 text-black/20 mb-8 font-black uppercase tracking-[0.8em] text-[10px]">
+                <Terminal size={14} />
+                04 — CONTACT_HUB
               </div>
-              <div className="flex items-center gap-1 px-3 py-1 bg-yellow-500/10 rounded-full">
-                <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
-                  <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clipRule="evenodd" />
-                </svg>
-                <span className="text-yellow-400 text-sm font-bold">{stars !== null ? stars : "--"}</span>
-              </div>
-            </a>
-          </div>
+              <h2 className="text-8xl md:text-[12rem] font-black tracking-tighter leading-[0.8] uppercase">
+                Let's<br />Talk<span className="text-black/5 font-serif italic lowercase">.</span>
+              </h2>
+            </motion.div>
 
-          {/* Right - Contact Form (3 cols) */}
-          <div className="md:col-span-3">
-            <div className="glass-card p-12 md:p-16">
-              {submitted ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <div className="w-16 h-16 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
-                    <Send className="w-8 h-8 text-green-400" />
-                  </div>
-                  <h3 className="text-white text-xl font-bold mb-2">Message Sent!</h3>
-                  <p className="text-white/50">Thank you for reaching out. I'll get back to you soon.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit}>
-                  <div className="mb-5">
-                    <label className="block text-white/60 text-sm font-medium mb-2" htmlFor="name">Your Name</label>
-                    <input
-                      className="input-glow"
-                      placeholder="John Doe"
-                      type="text"
-                      name="name"
-                      id="name"
-                      value={form.name}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="mb-5">
-                    <label className="block text-white/60 text-sm font-medium mb-2" htmlFor="email">Your Email</label>
-                    <input
-                      className="input-glow"
-                      placeholder="john@example.com"
-                      name="email"
-                      id="email"
-                      type="email"
-                      value={form.email}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="mb-6">
-                    <label className="block text-white/60 text-sm font-medium mb-2" htmlFor="message">Your Message</label>
-                    <textarea
-                      className="input-glow min-h-[140px] resize-y"
-                      placeholder="Tell me about your project..."
-                      name="message"
-                      id="message"
-                      value={form.message}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <button
-                    className="w-full btn-premium btn-primary justify-center text-base"
-                    type="submit"
-                  >
-                    <Send size={18} />
-                    Send Message
-                  </button>
-                </form>
-              )}
+            <div className="flex flex-col items-start md:items-end gap-2 pr-4">
+                <span className="text-[10px] font-black text-black/20 uppercase tracking-[0.4em]">Direct_Channel</span>
+                <span className="text-xl font-black group flex items-center gap-3 hover:translate-x-2 transition-transform cursor-pointer">
+                    WhatsApp Signal
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                </span>
             </div>
-          </div>
         </div>
+
+        {/* Table Manifest */}
+        <div className="border-b border-black/5">
+            <AnimatePresence mode="wait">
+              {submitted ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="flex flex-col items-center justify-center py-48 text-center"
+                >
+                  <Sparkles size={64} className="text-black mb-12" />
+                  <h3 className="text-6xl font-black uppercase tracking-tighter mb-4">Done.</h3>
+                  <p className="text-black/30 text-xl font-medium">Opening WhatsApp transmission...</p>
+                </motion.div>
+              ) : (
+                <motion.form 
+                  key="form"
+                  onSubmit={handleSubmit}
+                  className="flex flex-col"
+                >
+                  <TableRow 
+                    index="1"
+                    label="Identity" 
+                    id="name" 
+                    value={form.name} 
+                    onChange={handleChange} 
+                    placeholder="Enter identifier..." 
+                  />
+                  <TableRow 
+                    index="2"
+                    label="Return_Channel" 
+                    id="email" 
+                    type="email" 
+                    value={form.email} 
+                    onChange={handleChange} 
+                    placeholder="Enter communication node..." 
+                  />
+                  <TableRow 
+                    index="3"
+                    label="Signal_Details" 
+                    id="message" 
+                    value={form.message} 
+                    onChange={handleChange} 
+                    isTextArea
+                    placeholder="Describe requirements..." 
+                  />
+
+                  {/* Manifest Footer: Action Row */}
+                  <div 
+                    className="grid grid-cols-1 md:grid-cols-12 items-center py-16 md:py-24 group border-t border-black/5 transition-all hover:bg-black/[0.01] cursor-pointer"
+                    onClick={(e) => {
+                      if (e.target.tagName !== 'BUTTON') {
+                        const btn = e.currentTarget.querySelector('button');
+                        if (btn) btn.click();
+                      }
+                    }}
+                  >
+                    <div className="md:col-span-3 mb-8 md:mb-0">
+                        <span className="text-[10px] font-black text-black/10 uppercase tracking-[0.4em]">INITIATE // SIGNAL</span>
+                    </div>
+                    <div className="md:col-span-9 flex items-center justify-between">
+                        <button
+                          type="submit"
+                          className="text-4xl md:text-7xl font-black uppercase tracking-tighter hover:translate-x-4 transition-transform text-left"
+                        >
+                          Send Signal
+                        </button>
+                        
+                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-black text-white flex items-center justify-center transition-all duration-700 group-hover:scale-110 shadow-2xl relative overflow-hidden">
+                            <Send size={48} />
+                        </div>
+                    </div>
+                  </div>
+                </motion.form>
+              )}
+            </AnimatePresence>
+        </div>
+
+        {/* Technical Baseline */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12 py-16 md:py-24">
+            <div className="flex items-center gap-16">
+                <div className="flex items-center gap-4">
+                    <Activity size={16} className="text-black/40 animate-pulse" />
+                    <span className="text-[10px] font-black text-black/30 tracking-[0.4em] uppercase">STATUS: ACTIVE</span>
+                </div>
+                <div className="flex items-center gap-4">
+                    <Cpu size={16} className="text-black/20" />
+                    <span className="text-[10px] font-black text-black/30 tracking-[0.4em] uppercase">UPTIME: 99.99%</span>
+                </div>
+            </div>
+
+            <motion.a
+                whileHover={{ y: -5 }}
+                href={`https://github.com/${GITHUB_USERNAME}/React-Personal-Portfolio-main`}
+                target="_blank"
+                className="flex items-center gap-8 text-black/20 hover:text-black transition-all duration-700 group"
+            >
+                <div className="flex items-center gap-3">
+                    <span className="text-sm font-black tracking-tight">{stars || '00'} REPO_NODES</span>
+                </div>
+                <div className="h-4 w-px bg-black/10" />
+                <span className="text-[10px] font-black uppercase tracking-[0.5em]">KAPIL DEV © 2026 // SIGNAL 2.2</span>
+                <Github size={20} className="group-hover:rotate-[360deg] transition-transform duration-1000" />
+            </motion.a>
+        </div>
+
       </div>
     </section>
   );

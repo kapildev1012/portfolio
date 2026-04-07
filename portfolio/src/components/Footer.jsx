@@ -1,7 +1,12 @@
-import React from 'react';
-import { Heart } from 'lucide-react';
+"use client"
 
-const FOOTER_LINKS = [
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Github, Linkedin, Twitter, Mail, MapPin, ArrowUp, Heart } from 'lucide-react';
+
+import kapilPortrait from '../assets/kapil_portrait.png';
+
+const NAV_LINKS = [
     { label: 'About', id: 'about' },
     { label: 'Skills', id: 'skills' },
     { label: 'Projects', id: 'projects' },
@@ -9,72 +14,129 @@ const FOOTER_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/kapil-dev-2a48103a7/' },
-    { name: 'GitHub', url: 'https://github.com/kapildev1012' },
-    { name: 'Twitter', url: 'https://x.com/kapildev921390' },
+    { name: 'GitHub', url: 'https://github.com/kapildev1012', icon: Github },
+    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/kapil-dev-2a48103a7/', icon: Linkedin },
+    { name: 'Twitter', url: 'https://x.com/kapildev921390', icon: Twitter },
 ];
 
 export default function Footer() {
-    const handleClick = (e, id) => {
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const scrollToSection = (e, id) => {
         e.preventDefault();
         const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
     };
 
     return (
-        <footer className="footer-gradient text-white">
-            {/* Gradient Divider */}
-            <div className="footer-divider" />
-
-            <div className="container mx-auto px-6 py-12">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-                    {/* Left - Brand */}
-                    <div className="text-center md:text-left">
-                        <h3 className="text-xl font-bold gradient-text" style={{WebkitTextFillColor: 'transparent'}}>
-                            Kapil Dev
-                        </h3>
-                        <p className="text-white/40 text-sm mt-1">Full-Stack Software Engineer</p>
+        <footer className="relative bg-black text-white pt-24 pb-12 overflow-hidden border-t border-white/5">
+            <div className="section-wrap px-8 md:px-24 w-full max-w-7xl mx-auto">
+                
+                {/* Main 4-Column Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
+                    
+                    {/* Column 1: Bio & Photo */}
+                    <div className="flex flex-col gap-6">
+                        <div className="flex items-center gap-4">
+                            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/10 shadow-xl">
+                                <img 
+                                    src={kapilPortrait} 
+                                    alt="Kapil Dev" 
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <div className="flex flex-col">
+                                <h3 className="text-xl font-bold tracking-tight">Kapil Dev</h3>
+                                <p className="text-white/40 text-xs font-medium uppercase tracking-widest">Full-Stack Engineer</p>
+                            </div>
+                        </div>
+                        <p className="text-white/30 text-sm leading-relaxed max-w-xs">
+                            Dedicated to building scalable web ecosystems and high-performance digital solutions with the MERN stack.
+                        </p>
                     </div>
 
-                    {/* Center - Nav Links */}
-                    <div className="flex items-center gap-6">
-                        {FOOTER_LINKS.map(link => (
-                            <a
-                                key={link.id}
-                                href={`#${link.id}`}
-                                onClick={e => handleClick(e, link.id)}
-                                className="text-sm text-white/50 hover:text-white transition-colors duration-300"
+                    {/* Column 2: Navigation */}
+                    <div className="flex flex-col gap-6">
+                        <h4 className="text-sm font-black uppercase tracking-[0.2em] text-white/20">Navigation</h4>
+                        <div className="flex flex-col gap-3">
+                            {NAV_LINKS.map((link) => (
+                                <a
+                                    key={link.id}
+                                    href={`#${link.id}`}
+                                    onClick={(e) => scrollToSection(e, link.id)}
+                                    className="text-sm font-medium text-white/50 hover:text-white transition-colors w-fit"
+                                >
+                                    {link.label}
+                                </a>
+                            ))}
+                            <button 
+                                onClick={scrollToTop}
+                                className="text-sm font-medium text-white/50 hover:text-white transition-colors w-fit flex items-center gap-2"
                             >
-                                {link.label}
-                            </a>
-                        ))}
+                                Back to Top <ArrowUp size={14} />
+                            </button>
+                        </div>
                     </div>
 
-                    {/* Right - Socials */}
-                    <div className="flex items-center gap-4">
-                        {SOCIAL_LINKS.map(link => (
-                            <a
-                                key={link.name}
-                                href={link.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-sm text-white/50 hover:text-white transition-colors duration-300"
-                            >
-                                {link.name}
-                            </a>
-                        ))}
+                    {/* Column 3: Socials */}
+                    <div className="flex flex-col gap-6">
+                        <h4 className="text-sm font-black uppercase tracking-[0.2em] text-white/20">Social Channels</h4>
+                        <div className="flex flex-col gap-4">
+                            {SOCIAL_LINKS.map((social) => (
+                                <a
+                                    key={social.name}
+                                    href={social.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-3 text-sm font-medium text-white/50 hover:text-white transition-colors group"
+                                >
+                                    <social.icon size={18} className="group-hover:scale-110 transition-transform" />
+                                    {social.name}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Column 4: Contact */}
+                    <div className="flex flex-col gap-6">
+                        <h4 className="text-sm font-black uppercase tracking-[0.2em] text-white/20">Contact</h4>
+                        <div className="flex flex-col gap-5">
+                            <div className="flex items-start gap-3">
+                                <Mail size={18} className="text-white/30 mt-0.5" />
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-black text-white/20 uppercase tracking-widest mb-1">Email</span>
+                                    <a href="mailto:kapil16072004@gmail.com" className="text-sm font-medium hover:text-indigo-400 transition-colors underline underline-offset-4 decoration-white/10">
+                                        kapil16072004@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-3">
+                                <MapPin size={18} className="text-white/30 mt-0.5" />
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-black text-white/20 uppercase tracking-widest mb-1">Region</span>
+                                    <span className="text-sm font-medium text-white/50">Himachal Pradesh, India</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* Bottom Bar */}
-                <div className="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-white/30 text-xs">
+                {/* Simple Horizontal Baseline */}
+                <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <p className="text-white/30 text-xs font-medium">
                         © {new Date().getFullYear()} Kapil Dev. All rights reserved.
                     </p>
-                    <p className="text-white/30 text-xs flex items-center gap-1">
-                        Designed & Developed with <Heart className="w-3 h-3 text-red-400 fill-red-400" /> by Kapil Dev
-                    </p>
+                    <div className="flex items-center gap-6">
+                        <p className="text-white/30 text-xs flex items-center gap-2">
+                            Built with <Heart size={12} className="text-red-500 fill-red-500" /> by Kapil Dev
+                        </p>
+                        <div className="h-4 w-px bg-white/5 hidden md:block" />
+                        <span className="text-[10px] font-black text-white/10 uppercase tracking-widest">v2.4 // Discovery</span>
+                    </div>
                 </div>
+
             </div>
         </footer>
     );
