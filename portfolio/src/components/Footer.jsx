@@ -123,19 +123,7 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Simple Horizontal Baseline */}
-                <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <p className="text-white/30 text-xs font-medium">
-                        © {new Date().getFullYear()} Kapil Dev. All rights reserved.
-                    </p>
-                    <div className="flex items-center gap-6">
-                        <p className="text-white/30 text-xs flex items-center gap-2">
-                            Built with <Heart size={12} className="text-red-500 fill-red-500" /> by Kapil Dev
-                        </p>
-                        <div className="h-4 w-px bg-white/5 hidden md:block" />
-                        <span className="text-[10px] font-black text-white/10 uppercase tracking-widest">v2.4 // Discovery</span>
-                    </div>
-                </div>
+
 
             </div>
         </footer>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { VelocityText } from './ScrollVelocity';
-import { 
-  Figma, Git, Javascript, Mysql, Nextjs, Node, Php, PostgreSQL, 
-  ReactLogo, Typescript, Bootstrap, Css, Django, Html, MongoDB, Postman 
+import {
+  Figma, Git, Javascript, Mysql, Nextjs, Node, Php, PostgreSQL,
+  ReactLogo, Typescript, Bootstrap, Css, Django, Html, MongoDB, Postman
 } from './SkillLogos';
 
 const SKILLS_DATA = [
@@ -44,20 +44,20 @@ const SKILLS_DATA = [
 const SkillCard = ({ name, logo, color }) => {
   return (
     <motion.div
-      whileHover={{ scale: 1.15, zIndex: 50 }}
-      className="group relative flex flex-col items-center justify-center p-6 md:p-8 min-w-[120px] md:min-w-[170px] rounded-3xl bg-white/[0.03] border border-white/5 hover:border-white/20 transition-all duration-500 mx-3 md:mx-6"
+      whileHover={{ scale: 1.1, zIndex: 50 }}
+      className="group relative flex flex-col items-center justify-center p-4 md:p-5 min-w-[90px] md:min-w-[150px] rounded-2xl md:rounded-3xl bg-white/[0.03] border border-white/5 hover:border-white/20 transition-all duration-500 mx-2 md:mx-4"
     >
       {/* Decorative Glow */}
       <div 
-        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-2xl pointer-events-none"
+        className="absolute inset-0 rounded-2xl md:rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 blur-2xl pointer-events-none"
         style={{ backgroundColor: color }}
       />
       
-      <div className="w-12 h-12 md:w-20 md:h-20 mb-4 transition-all duration-500 transform group-hover:scale-110">
+      <div className="w-8 h-8 md:w-14 md:h-14 mb-3 md:mb-4 transition-all duration-500 transform group-hover:scale-110">
         {logo}
       </div>
       
-      <span className="text-[10px] md:text-sm font-black uppercase tracking-[0.3em] text-white/25 group-hover:text-white transition-colors">
+      <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] text-white/25 group-hover:text-white transition-colors">
         {name}
       </span>
     </motion.div>
@@ -72,7 +72,7 @@ export default function Skills() {
     >
       {/* Background Kinetic Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-radial-gradient from-indigo-500/5 to-transparent blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-radial-gradient from-indigo-500/5 to-transparent blur-[120px]" />
       </div>
 
       <div className="relative z-10 w-full">
@@ -84,7 +84,7 @@ export default function Skills() {
           >
             Kinetic_Stack
           </motion.p>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-8xl font-black text-white tracking-tighter uppercase leading-[0.85]"
