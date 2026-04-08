@@ -33,17 +33,17 @@ export default function Footer() {
     return (
         <footer className="relative bg-black text-white pt-24 pb-12 overflow-hidden border-t border-white/5">
             <div className="section-wrap px-8 md:px-24 w-full max-w-7xl mx-auto">
-                
+
                 {/* Main 4-Column Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
-                    
+
                     {/* Column 1: Bio & Photo */}
                     <div className="flex flex-col gap-6">
                         <div className="flex items-center gap-4">
                             <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/10 shadow-xl">
-                                <img 
-                                    src={kapilPortrait} 
-                                    alt="Kapil Dev" 
+                                <img
+                                    src={kapilPortrait}
+                                    alt="Kapil Dev"
                                     className="w-full h-full object-cover"
                                 />
                             </div>
@@ -71,7 +71,7 @@ export default function Footer() {
                                     {link.label}
                                 </a>
                             ))}
-                            <button 
+                            <button
                                 onClick={scrollToTop}
                                 className="text-sm font-medium text-white/50 hover:text-white transition-colors w-fit flex items-center gap-2"
                             >

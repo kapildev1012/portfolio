@@ -24,11 +24,11 @@ export default function Hero() {
 
           {/* Name */}
           <h1 className="flex flex-col items-center gap-1 text-white" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
-            <span className="text-3xl font-light tracking-wide opacity-75">
+            <span className="text-xl sm:text-3xl font-light tracking-wide opacity-75">
               <ScrambleText text="Hi, I'm" duration={0.8} delay={0.2} />
             </span>
             <span
-              className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight gradient-text"
+              className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight gradient-text"
               style={{ WebkitTextFillColor: 'transparent', lineHeight: 1.1 }}
             >
               <ScrambleText text="Kapil Dev" duration={1.5} delay={0.4} />
@@ -47,12 +47,12 @@ export default function Hero() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mt-8">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 mt-8 w-full max-w-[85vw] mx-auto">
             <a
               href="https://github.com/kapildev1012"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-premium btn-primary"
+              className="btn-premium btn-primary w-full sm:w-auto justify-center"
             >
               <Github size={18} />
               GitHub
@@ -61,7 +61,7 @@ export default function Hero() {
               href="https://www.linkedin.com/in/kapil-dev-2a48103a7/"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-premium btn-outline"
+              className="btn-premium btn-outline w-full sm:w-auto justify-center"
             >
               <Linkedin size={18} />
               LinkedIn
@@ -70,7 +70,7 @@ export default function Hero() {
               href="https://drive.google.com/file/d/1PNoOM-hgEHcUPdvFzyM4crW9Q93exKFY/view"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-premium btn-outline"
+              className="btn-premium btn-outline w-full sm:w-auto justify-center"
             >
               <Download size={18} />
               Resume

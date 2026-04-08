@@ -122,13 +122,33 @@ export default function Navbar() {
                 </nav>
             </header>
 
-            {/* ── Mobile Top Bar ── */}
-            <header className="fixed top-0 left-0 right-0 z-50 md:hidden">
-                <div className="flex items-center justify-between px-5 py-4">
-                    <span className="text-white text-sm font-semibold tracking-widest opacity-90">KD</span>
+            {/* ── Mobile Top Bar (Glass Pill) ── */}
+            <header className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90vw] md:hidden transition-all duration-500 ${mobileOpen ? 'opacity-0 -translate-y-4 pointer-events-none' : 'opacity-100 translate-y-0'}`}>
+                <div
+                    className="flex flex-row items-center justify-between w-full pointer-events-auto"
+                    style={{
+                        padding: '8px 12px 8px 36px',
+                        borderRadius: '100px',
+                        border: scrolled
+                            ? '1px solid rgba(255,255,255,0.15)'
+                            : '1px solid rgba(255,255,255,0.05)',
+                        background: scrolled
+                            ? 'rgba(8, 10, 22, 0.75)'
+                            : 'rgba(255,255,255,0.05)',
+                        backdropFilter: 'blur(20px)',
+                        WebkitBackdropFilter: 'blur(20px)',
+                        boxShadow: scrolled
+                            ? '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)'
+                            : '0 4px 20px rgba(0,0,0,0.1)',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
+                >
+                    <span className="text-white text-[11px] sm:text-xs font-black tracking-[0.25em] uppercase opacity-90 select-none">
+                        Kapil Dev
+                    </span>
                     <button
-                        onClick={() => setMobileOpen(!mobileOpen)}
-                        aria-label="Toggle menu"
+                        onClick={() => setMobileOpen(true)}
+                        aria-label="Open menu"
                         style={{
                             width: '40px',
                             height: '40px',
@@ -136,89 +156,117 @@ export default function Navbar() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            background: 'rgba(255,255,255,0.12)',
-                            backdropFilter: 'blur(12px)',
-                            WebkitBackdropFilter: 'blur(12px)',
-                            border: '1px solid rgba(255,255,255,0.18)',
+                            background: 'rgba(255,255,255,0.1)',
+                            border: '1px solid rgba(255,255,255,0.15)',
                             transition: 'all 0.2s ease',
                             cursor: 'pointer',
                         }}
+                        className="active:scale-95 active:bg-white/20"
                     >
-                        {mobileOpen ? <X size={18} color="#000" /> : <Menu size={18} color="#fff" />}
+                        <Menu size={18} color="#fff" />
                     </button>
                 </div>
             </header>
 
-            {/* ── Premium Glassmorphic Mobile Slide-Bar ── */}
+            {/* ── Elite Editorial Mobile Navigation ── */}
             <AnimatePresence>
                 {mobileOpen && (
                     <>
-                        {/* Interactive Backdrop */}
+                        {/* Interactive Blur Backdrop */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.4 }}
+                            transition={{ duration: 0.3 }}
                             onClick={() => setMobileOpen(false)}
-                            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+                            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-md md:hidden"
                         />
 
-                        {/* Floating Drawer Shell */}
+                        {/* Floating Terminal Island */}
                         <motion.div
-                            initial={{ x: '100%', borderTopLeftRadius: '0px', borderBottomLeftRadius: '0px' }}
-                            animate={{ x: 0, borderTopLeftRadius: '40px', borderBottomLeftRadius: '40px' }}
-                            exit={{ x: '100%', borderTopLeftRadius: '0px', borderBottomLeftRadius: '0px' }}
-                            transition={{ type: "spring", damping: 25, stiffness: 220, mass: 0.8 }}
-                            className="fixed top-0 right-0 z-40 h-[100dvh] w-[82%] max-w-sm flex flex-col justify-between py-16 px-10 shadow-2xl md:hidden overflow-hidden"
-                            style={{
-                                background: 'rgba(255, 255, 255, 0.70)',
-                                backdropFilter: 'blur(36px)',
-                                WebkitBackdropFilter: 'blur(36px)',
-                                borderLeft: '1px solid rgba(255,255,255,0.4)',
-                            }}
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.98 }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="fixed inset-6 sm:inset-10 z-50 md:hidden flex flex-col bg-[#050505] rounded-[32px] border border-white/10 shadow-2xl text-white py-12 px-12 sm:px-20 overflow-y-auto"
                         >
-                            {/* Inner Links */}
-                            <div className="flex flex-col gap-10 mt-24 z-50 pr-4">
+                            {/* Inner Menu Header */}
+                            <div className="flex items-center justify-between w-full mb-12 shrink-0">
+                                <span className="text-white text-[11px] font-black tracking-[0.25em] uppercase opacity-90 select-none pl-4">
+                                    Kapil Dev
+                                </span>
+                                <button
+                                    onClick={() => setMobileOpen(false)}
+                                    aria-label="Close menu"
+                                    style={{
+                                        width: '42px',
+                                        height: '42px',
+                                        borderRadius: '50%',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        background: 'rgba(255,255,255,0.05)',
+                                        border: '1px solid rgba(255,255,255,0.1)',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s ease',
+                                    }}
+                                    className="active:scale-90 active:bg-white/10"
+                                >
+                                    <X size={18} color="#fff" />
+                                </button>
+                            </div>
+
+                            {/* Structured Link Grid */}
+                            <div className="flex flex-col w-full flex-grow">
+                                <div className="w-full h-[1px] bg-white/10" />
                                 {NAV_LINKS.map((link, i) => (
-                                    <div key={link.id} className="overflow-hidden p-1">
+                                    <div key={link.id} className="w-full">
                                         <motion.a
                                             href={`#${link.id}`}
                                             onClick={e => handleNavClick(e, link.id, setMobileOpen)}
-                                            initial={{ opacity: 0, x: 40 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            exit={{ opacity: 0, x: 20 }}
-                                            whileHover={{ x: -10, color: '#000' }}
-                                            whileTap={{ scale: 0.95 }}
-                                            transition={{ delay: 0.1 + (i * 0.08), type: "spring", stiffness: 300, damping: 25 }}
-                                            className="block w-full text-right text-4xl font-black uppercase tracking-tighter text-black/70 transition-colors"
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            transition={{ delay: 0.05 + (i * 0.05), ease: "easeOut" }}
+                                            className="w-full flex flex-col items-center justify-center py-6 sm:py-10 px-8 sm:px-12 group active:bg-white/5 transition-colors"
                                         >
-                                            {link.label}
+                                            <span className="text-[10px] sm:text-xs font-mono text-white/40 tracking-[0.3em] uppercase mb-2">
+                                                [ 0{i + 1} ]
+                                            </span>
+                                            <span className="text-[28px] sm:text-4xl font-light tracking-widest uppercase text-white/80 group-hover:text-white transition-colors text-center">
+                                                {link.label}
+                                            </span>
                                         </motion.a>
+                                        <div className="w-full h-[1px] bg-white/10" />
                                     </div>
                                 ))}
+                                {/* Resume Link integrated next to Contact */}
+                                <div className="w-full">
+                                    <motion.a
+                                        href="https://drive.google.com/file/d/1PNoOM-hgEHcUPdvFzyM4crW9Q93exKFY/view"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        transition={{ delay: 0.05 + (NAV_LINKS.length * 0.05), ease: "easeOut" }}
+                                        className="w-full flex flex-col items-center justify-center py-6 sm:py-10 group bg-indigo-500/5 active:bg-indigo-500/10 transition-colors"
+                                    >
+                                        <span className="text-[9px] font-mono text-indigo-400 tracking-[0.4em] uppercase mb-2">
+                                            [ File_05 ]
+                                        </span>
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-[26px] sm:text-4xl font-black tracking-widest uppercase text-indigo-400">
+                                                Resume
+                                            </span>
+                                            <ArrowUpRight size={22} className="text-indigo-400 stroke-[3]" />
+                                        </div>
+                                    </motion.a>
+                                    <div className="w-full h-[1px] bg-white/10" />
+                                </div>
                             </div>
 
-                            {/* Crisp Layout Footer */}
-                            <motion.div 
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 20 }}
-                                transition={{ delay: 0.4, type: "spring" }}
-                                className="w-full flex flex-col gap-6"
-                            >
-                                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-black/10 to-black/20" />
-                                <a
-                                    href="https://drive.google.com/file/d/1PNoOM-hgEHcUPdvFzyM4crW9Q93exKFY/view"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={() => setMobileOpen(false)}
-                                    className="w-full py-4 rounded-full bg-black text-white font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-3 active:scale-95 transition-all outline-none"
-                                    style={{ boxShadow: '0 8px 30px rgba(0,0,0,0.15)' }}
-                                >
-                                    <span>Download Resume</span>
-                                    <ArrowUpRight size={16} />
-                                </a>
-                            </motion.div>
+
                         </motion.div>
                     </>
                 )}
