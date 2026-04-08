@@ -7,7 +7,7 @@ export default function Certifications() {
     <section id="certifications" className="w-full bg-white text-black py-20">
       <div className="section-wrap">
         <div className="text-center">
-          <div className="inline-block mb-12">
+          <div className="inline-block mb-20 md:mb-32">
             <h2 className="text-4xl md:text-5xl font-bold">
               <Highlighter action="underline" color="#FFD700">
                 Resume Overview
@@ -15,7 +15,7 @@ export default function Certifications() {
             </h2>
           </div>
 
-          <div className="relative flex max-w-2xl mx-auto flex-col items-center justify-center overflow-hidden rounded-lg border bg-background p-8 md:p-14">
+          <div className="relative flex max-w-2xl mx-auto flex-col items-center justify-center overflow-hidden rounded-lg border bg-background p-4 md:p-14">
             <Tree
               className="w-full bg-background overflow-hidden rounded-md"
               initialExpandedItems={[

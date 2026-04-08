@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function handleNavClick(e, id, setMobileOpen) {
     e.preventDefault();
@@ -92,7 +93,7 @@ export default function Navbar() {
 
                     {/* Resume CTA */}
                     <a
-                        href="https://drive.google.com/file/d/1HUSyidPB-EnwbagpZNlVQOJ1-Do7upTP/view"
+                        href="https://drive.google.com/file/d/1PNoOM-hgEHcUPdvFzyM4crW9Q93exKFY/view"
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
@@ -143,55 +144,85 @@ export default function Navbar() {
                             cursor: 'pointer',
                         }}
                     >
-                        {mobileOpen ? <X size={18} color="#fff" /> : <Menu size={18} color="#fff" />}
+                        {mobileOpen ? <X size={18} color="#000" /> : <Menu size={18} color="#fff" />}
                     </button>
                 </div>
             </header>
 
-            {/* ── Mobile Slide-in Panel ── */}
-            <div className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${mobileOpen ? 'visible' : 'invisible'}`}>
-                {/* Backdrop */}
-                <div
-                    className={`absolute inset-0 transition-opacity duration-300 ${mobileOpen ? 'opacity-100' : 'opacity-0'}`}
-                    style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)' }}
-                    onClick={() => setMobileOpen(false)}
-                />
-                {/* Panel */}
-                <div
-                    className={`absolute top-0 right-0 h-full w-72 transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : 'translate-x-full'}`}
-                    style={{
-                        background: 'rgba(8, 10, 22, 0.97)',
-                        backdropFilter: 'blur(30px)',
-                        WebkitBackdropFilter: 'blur(30px)',
-                        borderLeft: '1px solid rgba(255,255,255,0.07)',
-                    }}
-                >
-                    <div className="flex flex-col pt-20 px-5 gap-1">
-                        {NAV_LINKS.map(link => (
-                            <a
-                                key={link.id}
-                                href={`#${link.id}`}
-                                onClick={e => handleNavClick(e, link.id, setMobileOpen)}
-                                className="px-4 py-3.5 rounded-xl text-[15px] font-medium text-white/70 transition-all duration-200 hover:text-white hover:bg-white/5"
+            {/* ── Premium Glassmorphic Mobile Slide-Bar ── */}
+            <AnimatePresence>
+                {mobileOpen && (
+                    <>
+                        {/* Interactive Backdrop */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.4 }}
+                            onClick={() => setMobileOpen(false)}
+                            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+                        />
+
+                        {/* Floating Drawer Shell */}
+                        <motion.div
+                            initial={{ x: '100%', borderTopLeftRadius: '0px', borderBottomLeftRadius: '0px' }}
+                            animate={{ x: 0, borderTopLeftRadius: '40px', borderBottomLeftRadius: '40px' }}
+                            exit={{ x: '100%', borderTopLeftRadius: '0px', borderBottomLeftRadius: '0px' }}
+                            transition={{ type: "spring", damping: 25, stiffness: 220, mass: 0.8 }}
+                            className="fixed top-0 right-0 z-40 h-[100dvh] w-[82%] max-w-sm flex flex-col justify-between py-16 px-10 shadow-2xl md:hidden overflow-hidden"
+                            style={{
+                                background: 'rgba(255, 255, 255, 0.70)',
+                                backdropFilter: 'blur(36px)',
+                                WebkitBackdropFilter: 'blur(36px)',
+                                borderLeft: '1px solid rgba(255,255,255,0.4)',
+                            }}
+                        >
+                            {/* Inner Links */}
+                            <div className="flex flex-col gap-10 mt-24 z-50 pr-4">
+                                {NAV_LINKS.map((link, i) => (
+                                    <div key={link.id} className="overflow-hidden p-1">
+                                        <motion.a
+                                            href={`#${link.id}`}
+                                            onClick={e => handleNavClick(e, link.id, setMobileOpen)}
+                                            initial={{ opacity: 0, x: 40 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: 20 }}
+                                            whileHover={{ x: -10, color: '#000' }}
+                                            whileTap={{ scale: 0.95 }}
+                                            transition={{ delay: 0.1 + (i * 0.08), type: "spring", stiffness: 300, damping: 25 }}
+                                            className="block w-full text-right text-4xl font-black uppercase tracking-tighter text-black/70 transition-colors"
+                                        >
+                                            {link.label}
+                                        </motion.a>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Crisp Layout Footer */}
+                            <motion.div 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 20 }}
+                                transition={{ delay: 0.4, type: "spring" }}
+                                className="w-full flex flex-col gap-6"
                             >
-                                {link.label}
-                            </a>
-                        ))}
-                        <div className="mt-5 pt-5 border-t border-white/[0.06]">
-                            <a
-                                href="https://drive.google.com/file/d/1vuvWLNdXU6Mh2FTUlzscJUAOXo-Uc_D9/view?usp=share_link"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={() => setMobileOpen(false)}
-                                className="block text-center py-3 rounded-full text-sm font-semibold text-white"
-                                style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}
-                            >
-                                View Resume ↗
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-black/10 to-black/20" />
+                                <a
+                                    href="https://drive.google.com/file/d/1PNoOM-hgEHcUPdvFzyM4crW9Q93exKFY/view"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => setMobileOpen(false)}
+                                    className="w-full py-4 rounded-full bg-black text-white font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-3 active:scale-95 transition-all outline-none"
+                                    style={{ boxShadow: '0 8px 30px rgba(0,0,0,0.15)' }}
+                                >
+                                    <span>Download Resume</span>
+                                    <ArrowUpRight size={16} />
+                                </a>
+                            </motion.div>
+                        </motion.div>
+                    </>
+                )}
+            </AnimatePresence>
         </>
     );
 }

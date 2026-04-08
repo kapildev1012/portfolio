@@ -43,7 +43,7 @@ const stagger = {
 };
 
 const GRAD = {
-    background: 'linear-gradient(135deg, #818cf8, #a78bfa, #e879f9)',
+    background: 'linear-gradient(135deg, #e5e5e5, #ffffff, #a3a3a3)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
@@ -95,13 +95,13 @@ export default function About() {
             <div className="absolute inset-0 pointer-events-none flex flex-col justify-between py-20 overflow-hidden">
                 <motion.h2
                     style={{ x: xLeft, opacity: opacityBackground }}
-                    className="text-[10rem] md:text-[18rem] font-black text-white whitespace-nowrap leading-none select-none uppercase"
+                    className="text-[4rem] md:text-[10rem] font-black text-white whitespace-nowrap leading-none select-none uppercase"
                 >
                     Creative Engineer
                 </motion.h2>
                 <motion.h2
                     style={{ x: xRight, opacity: opacityBackground }}
-                    className="text-[10rem] md:text-[18rem] font-black text-white whitespace-nowrap leading-none select-none uppercase self-end"
+                    className="text-[4rem] md:text-[10rem] font-black text-white whitespace-nowrap leading-none select-none uppercase self-end"
                 >
                     MERN Specialist
                 </motion.h2>
@@ -140,7 +140,7 @@ export default function About() {
                         <span className="text-indigo-400 text-[10px] font-bold tracking-[0.2em] uppercase">Discovery</span>
                     </motion.div>
 
-                    <motion.h2 variants={fadeUp} className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tighter leading-[0.9] mb-8">
+                    <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter leading-[0.9] mb-20 md:mb-32">
                         Get to know <span style={GRAD}>Me</span>
                     </motion.h2>
 

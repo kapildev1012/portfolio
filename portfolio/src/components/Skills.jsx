@@ -42,7 +42,7 @@ export default function Skills() {
         }}
       />
 
-      <div className="relative z-10 section-wrap text-center mb-12">
+      <div className="relative z-10 section-wrap text-center mb-20 md:mb-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -62,8 +62,8 @@ export default function Skills() {
           {skillsRow1.map((logo, index) => (
             <motion.div
               key={index}
-              whileHover={{ scale: 1.1, color: '#818cf8' }}
-              className="w-16 h-16 md:w-20 md:h-20 text-white/30 mx-6 md:mx-10 transition-colors"
+              whileHover={{ scale: 1.1 }}
+              className="w-12 h-12 md:w-20 md:h-20 mx-6 md:mx-10 transition-all duration-300 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 drop-shadow-sm hover:drop-shadow-md"
             >
               {logo}
             </motion.div>

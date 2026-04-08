@@ -86,7 +86,7 @@ export default function Education() {
             </div>
 
             <div className="relative z-10 w-full section-wrap">
-                <div className="flex flex-col items-center text-center mb-28">
+                <div className="flex flex-col items-center text-center mb-24 md:mb-56">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
@@ -113,16 +113,16 @@ export default function Education() {
                     </motion.h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-24 max-w-[90rem] mx-auto px-12 md:px-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-40 max-w-[110rem] mx-auto px-8 md:px-16">
                     {QUAL_DATA.map((node, idx) => (
                         <div key={idx} className="relative group">
                             {/* Vertical Divider */}
                             {idx < 3 && (
                                 <div className="hidden lg:block absolute -right-12 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent" />
                             )}
-                            
+
                             {/* Header */}
-                            <div className="flex items-center gap-4 mb-10">
+                            <div className="flex items-center gap-4 mb-12">
                                 <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-500/20 transition-all duration-500">
                                     {node.icon}
                                 </div>
@@ -132,7 +132,7 @@ export default function Education() {
                             </div>
 
                             {/* List Items */}
-                            <div className="space-y-10 relative z-10">
+                            <div className="space-y-12 md:space-y-16 relative z-10">
                                 {node.items.map((item, i) => (
                                     <div key={i} className="group/item relative pl-5 border-l border-white/5 hover:border-indigo-500/40 transition-colors duration-300">
                                         <div className="space-y-3">
