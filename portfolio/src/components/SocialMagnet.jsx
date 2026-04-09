@@ -51,19 +51,19 @@ export default function SocialMagnet() {
 
     return (
         <motion.div
-            initial={{ y: 0, opacity: 0, scale: 0 }}
-            animate={{ y: 0, opacity: 0, scale: 0 }}
+            initial={{ y: 100, opacity: 0, scale: 0.8 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
             transition={{
                 type: "spring",
-                stiffness: 100,
-                damping: 15,
+                stiffness: 120,
+                damping: 20,
                 mass: 1,
-                delay: 0.2
+                delay: 0.5
             }}
-            className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2"
+            className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 w-max max-w-[95vw]"
         >
             <TooltipProvider>
-                <Dock>
+                <Dock className="bg-black/40 backdrop-blur-xl border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
                     <DockIcon>
                         <Tooltip>
                             <TooltipTrigger asChild>
@@ -73,10 +73,10 @@ export default function SocialMagnet() {
                                     aria-label="Home"
                                     className={cn(
                                         buttonVariants({ variant: "ghost", size: "icon" }),
-                                        "size-12 rounded-full"
+                                        "size-10 sm:size-12 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
                                     )}
                                 >
-                                    <HomeIcon className="size-6" />
+                                    <HomeIcon className="size-5 sm:size-6" />
                                 </a>
                             </TooltipTrigger>
                             <TooltipContent>
@@ -94,13 +94,13 @@ export default function SocialMagnet() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.name}
-                                        className={cn(
-                                            buttonVariants({ variant: "ghost", size: "icon" }),
-                                            "size-12 rounded-full"
-                                        )}
-                                    >
-                                        <social.icon className="size-6" />
-                                    </a>
+                                    className={cn(
+                                        buttonVariants({ variant: "ghost", size: "icon" }),
+                                        "size-10 sm:size-12 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                                    )}
+                                >
+                                    <social.icon className="size-5 sm:size-6" />
+                                </a>
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>{social.name}</p>
