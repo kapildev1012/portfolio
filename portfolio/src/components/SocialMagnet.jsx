@@ -55,7 +55,7 @@ export default function SocialMagnet() {
             animate={{ y: 0, opacity: 1, scale: 1 }}
             transition={{
                 type: "spring",
-                stiffness: 120,
+                stiffness: 121,
                 damping: 20,
                 mass: 1,
                 delay: 0.5
@@ -94,13 +94,13 @@ export default function SocialMagnet() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         aria-label={social.name}
-                                    className={cn(
-                                        buttonVariants({ variant: "ghost", size: "icon" }),
-                                        "size-10 sm:size-12 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
-                                    )}
-                                >
-                                    <social.icon className="size-5 sm:size-6" />
-                                </a>
+                                        className={cn(
+                                            buttonVariants({ variant: "ghost", size: "icon" }),
+                                            "size-10 sm:size-12 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                                        )}
+                                    >
+                                        <social.icon className="size-5 sm:size-6" />
+                                    </a>
                                 </TooltipTrigger>
                                 <TooltipContent>
                                     <p>{social.name}</p>
