@@ -53,7 +53,7 @@ export default function Footer() {
                             </div>
                         </div>
                         <p className="text-white/30 text-sm leading-relaxed max-w-xs">
-                            Dedicated to building scalable web ecosystems and high-performance digital solutions with the MERN stack.
+                            Dedicated to building scalable web ecosystems and high-performance digital solutions with the MERN stack
                         </p>
                     </div>
 
