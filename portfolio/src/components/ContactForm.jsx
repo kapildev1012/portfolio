@@ -33,7 +33,7 @@ const SimpleRow = ({ label, id, type = "text", value, onChange, placeholder, isT
             onBlur={() => setIsFocused(false)}
             placeholder={placeholder}
             required
-            className="w-full bg-transparent border-none outline-none text-black font-black text-xl md:text-5xl placeholder:text-black/5 min-h-[120px] resize-none leading-tight tracking-tighter"
+            className="w-full bg-transparent border-none outline-none text-black font-black text-lg md:text-5xl placeholder:text-black/5 min-h-[120px] resize-none leading-tight tracking-tighter"
           />
         ) : (
           <input
@@ -46,7 +46,7 @@ const SimpleRow = ({ label, id, type = "text", value, onChange, placeholder, isT
             onBlur={() => setIsFocused(false)}
             placeholder={placeholder}
             required
-            className="w-full bg-transparent border-none outline-none text-black font-black text-xl md:text-5xl placeholder:text-black/5 leading-tight tracking-tighter"
+            className="w-full bg-transparent border-none outline-none text-black font-black text-lg md:text-5xl placeholder:text-black/5 leading-tight tracking-tighter"
           />
         )}
 
@@ -85,7 +85,7 @@ export default function ContactForm() {
             whileInView={{ opacity: 1, y: 0 }}
             className="flex flex-col"
           >
-            <h2 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.8] uppercase flex flex-col md:flex-row md:items-baseline gap-4">
+            <h2 className="text-4xl md:text-[10rem] font-black tracking-tighter leading-[0.8] uppercase flex flex-col md:flex-row md:items-baseline gap-4">
               Let's Talk <span className="text-black/5 italic font-serif lowercase translate-y-[-0.1em]">.</span>
             </h2>
             <p className="mt-8 text-black/40 text-base md:text-lg font-medium tracking-tight">Available for definitive digital collaborations.</p>
@@ -147,7 +147,7 @@ export default function ContactForm() {
                     type="submit"
                     className="group flex items-center gap-8 md:gap-12 transition-transform active:scale-95"
                   >
-                    <span className="text-2xl sm:text-3xl md:text-7xl font-black uppercase tracking-tighter group-hover:translate-x-4 transition-transform duration-700 text-left">
+                    <span className="text-xl sm:text-2xl md:text-7xl font-black uppercase tracking-tighter group-hover:translate-x-4 transition-transform duration-700 text-left">
                       Send Transmission
                     </span>
                     <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-black text-white flex items-center justify-center transition-all duration-700 group-hover:scale-110 shadow-2xl overflow-hidden active:rotate-12">

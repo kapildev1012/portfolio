@@ -24,11 +24,11 @@ export default function Hero() {
 
           {/* Name */}
           <h1 className="flex flex-col items-center gap-1 text-white" style={{ textShadow: '0 4px 12px rgba(0,0,0,0.5)' }}>
-            <span className="text-xl sm:text-3xl font-light tracking-wide opacity-75">
+            <span className="text-lg sm:text-3xl font-light tracking-wide opacity-75">
               <ScrambleText text="Hi, I'm" duration={0.8} delay={0.2} />
             </span>
             <span
-              className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight gradient-text"
+              className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold tracking-tight gradient-text"
               style={{ WebkitTextFillColor: 'transparent', lineHeight: 1.1 }}
             >
               <ScrambleText text="Kapil Dev" duration={1.5} delay={0.4} />

@@ -87,7 +87,7 @@ export default function Skills() {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-8xl font-black text-white tracking-tighter uppercase leading-[0.85]"
+            className="text-3xl md:text-8xl font-black text-white tracking-tighter uppercase leading-[0.85]"
           >
             Engineering<br /> <span className="text-white/10">The Performance.</span>
           </motion.h2>

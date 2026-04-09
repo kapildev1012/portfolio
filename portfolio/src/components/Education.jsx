@@ -105,9 +105,9 @@ export default function Education() {
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="text-6xl md:text-8xl font-bold text-white tracking-tighter"
+                        className="text-5xl md:text-8xl font-bold text-white tracking-tighter px-8 text-center"
                     >
-                        <Highlighter action="underline" color="rgba(129,140,248,0.3)" strokeWidth={3}>
+                        <Highlighter action="underline" color="rgba(161,161,170,0.3)" strokeWidth={3}>
                             Qualifications
                         </Highlighter>
                     </motion.h2>

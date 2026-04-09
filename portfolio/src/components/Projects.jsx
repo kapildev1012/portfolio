@@ -70,7 +70,7 @@ const ProjectCard = ({ project, index }) => {
           <div className="flex items-baseline justify-between">
             <div className="flex flex-col">
               <span className="text-black/30 text-[9px] font-black uppercase tracking-[0.4em] mb-2">{formattedIndex} — Project</span>
-              <h3 className="text-xl md:text-3xl font-black text-black tracking-tighter transition-colors duration-500 group-hover:text-black leading-none">
+               <h3 className="text-lg md:text-3xl font-black text-black tracking-tighter transition-colors duration-500 group-hover:text-black leading-none">
                 {project.title}
               </h3>
             </div>
@@ -159,7 +159,7 @@ export default function Projects() {
           <motion.h2
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            className="text-3xl sm:text-5xl md:text-7xl font-black text-black tracking-tightest leading-[0.85] uppercase"
+            className="text-2xl sm:text-5xl md:text-7xl font-black text-black tracking-tightest leading-[0.85] uppercase"
           >
             <ScrambleText text="Selected" duration={1} /><br />
             <Highlighter action="underline" color="#e5e5e5" strokeWidth={8}>

@@ -6,10 +6,10 @@
 :root {
   --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   --gradient-accent: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-hero: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7, #d946ef);
+  --gradient-hero: linear-gradient(135deg, #8b5cf6, #a855f7, #d946ef, #f43f5e);
   --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   --glow-purple: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 60px rgba(139, 92, 246, 0.1);
-  --glow-blue: 0 0 20px rgba(99, 102, 241, 0.3), 0 0 60px rgba(99, 102, 241, 0.1);
+  --glow-neutral: 0 0 20px rgba(161, 161, 170, 0.3), 0 0 60px rgba(161, 161, 170, 0.1);
   --glass-bg: rgba(255, 255, 255, 0.08);
   --glass-border: rgba(255, 255, 255, 0.12);
 }
@@ -48,11 +48,11 @@ body {
 [class*="watermark"],
 [class*="logo--"],
 [class*="spline-watermark"],
-spline-viewer > div:last-child,
-spline-viewer > a,
-canvas + div,
-canvas ~ div[style*="bottom"],
-canvas ~ div[style*="top"] {
+spline-viewer>div:last-child,
+spline-viewer>a,
+canvas+div,
+canvas~div[style*="bottom"],
+canvas~div[style*="top"] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -83,7 +83,10 @@ canvas ~ div[style*="top"] {
   * {
     cursor: none !important;
   }
-  input, textarea, select {
+
+  input,
+  textarea,
+  select {
     cursor: text !important;
   }
 }
@@ -93,11 +96,11 @@ canvas ~ div[style*="top"] {
   position: fixed;
   top: 0;
   left: 0;
-  height: 3px;
-  background: var(--gradient-hero);
+  height: 4px;
+  background: linear-gradient(to right, #94a3b8, #d946ef);
   z-index: 9999;
-  transition: width 0.1s linear;
-  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  transition: width 0.1s ease-out;
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.6), 0 0 5px rgba(139, 92, 246, 0.3);
 }
 
 /* ========== LOADING SCREEN ========== */
@@ -198,16 +201,16 @@ canvas ~ div[style*="top"] {
   border-radius: 5px;
   transform: translateY(-10px);
   box-shadow: 0 7px 0 -2px #f85959,
-   0 15px 0 -4px #39a2db,
-   0 16px 10px -3px #39a2db;
+    0 15px 0 -4px #a1a1aa,
+    0 16px 10px -3px #a1a1aa;
 }
 
 .btn:active {
   transition: all 0.2s;
   transform: translateY(-5px);
   box-shadow: 0 2px 0 -2px #f85959,
-   0 8px 0 -4px #39a2db,
-   0 12px 10px -3px #39a2db;
+    0 8px 0 -4px #a1a1aa,
+    0 12px 10px -3px #a1a1aa;
 }
 
 .btn-premium {
@@ -266,28 +269,22 @@ canvas ~ div[style*="top"] {
   background-image: linear-gradient(to right, #e2e8f0 1px, transparent 1px),
     linear-gradient(to bottom, #e2e8f0 1px, transparent 1px);
   background-size: 20px 30px;
-  -webkit-mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    #000 60%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    #000 60%,
-    transparent 100%
-  );
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%,
+      #000 60%,
+      transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%,
+      #000 60%,
+      transparent 100%);
 }
 
 .contact-bg {
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       #fff 0%,
       #fff 40%,
-      rgba(255, 255, 255, 0) 100%
-    ),
-    linear-gradient(to right, #0ed2da, #5f29c7);
+      rgba(255, 255, 255, 0) 100%),
+    linear-gradient(to right, #8b5cf6, #5f29c7);
   position: relative;
   overflow: hidden;
 }
@@ -299,16 +296,12 @@ canvas ~ div[style*="top"] {
   background-image: linear-gradient(90deg, #ccc 1px, transparent 1px);
   background-size: 50px 100%;
   pointer-events: none;
-  mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0) 70%
-  );
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0) 70%
-  );
+  mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 70%);
+  -webkit-mask-image: linear-gradient(to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 70%);
 }
 
 /* ========== STAT COUNTER ========== */
@@ -347,22 +340,43 @@ canvas ~ div[style*="top"] {
 
 /* ========== ANIMATIONS ========== */
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.6); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(139, 92, 246, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes fadeInUp {
@@ -370,6 +384,7 @@ canvas ~ div[style*="top"] {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

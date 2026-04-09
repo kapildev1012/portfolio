@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Instagram, Linkedin, Github, Wifi, Battery, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function handleNavClick(e, id, setMobileOpen) {
@@ -21,11 +21,22 @@ const NAV_LINKS = [
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [time, setTime] = useState('');
 
     useEffect(() => {
         const onScroll = () => setScrolled(window.scrollY > 40);
         window.addEventListener('scroll', onScroll);
-        return () => window.removeEventListener('scroll', onScroll);
+
+        // Live system clock for the technical footer
+        const timer = setInterval(() => {
+            const now = new Date();
+            setTime(now.toLocaleTimeString([], { hour: '2in', minute: '2-digit', hour12: false }));
+        }, 1000);
+
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            clearInterval(timer);
+        };
     }, []);
 
     return (
@@ -82,16 +93,8 @@ export default function Navbar() {
                         </a>
                     ))}
 
-                    {/* Divider */}
-                    <div style={{
-                        width: '1px',
-                        height: '20px',
-                        background: 'rgba(255,255,255,0.2)',
-                        margin: '0 4px',
-                        flexShrink: 0,
-                    }} />
+                    <div style={{ width: '1px', height: '20px', background: 'rgba(255,255,255,0.2)', margin: '0 4px', flexShrink: 0 }} />
 
-                    {/* Resume CTA */}
                     <a
                         href="https://drive.google.com/file/d/1PNoOM-hgEHcUPdvFzyM4crW9Q93exKFY/view"
                         target="_blank"
@@ -108,14 +111,6 @@ export default function Navbar() {
                             transition: 'all 0.2s ease',
                             whiteSpace: 'nowrap',
                         }}
-                        onMouseEnter={e => {
-                            e.currentTarget.style.boxShadow = '0 4px 20px rgba(99,102,241,0.65)';
-                            e.currentTarget.style.transform = 'translateY(-1px)';
-                        }}
-                        onMouseLeave={e => {
-                            e.currentTarget.style.boxShadow = '0 2px 12px rgba(99,102,241,0.45)';
-                            e.currentTarget.style.transform = 'translateY(0)';
-                        }}
                     >
                         Resume ↗
                     </a>
@@ -127,18 +122,18 @@ export default function Navbar() {
                 <div
                     className="flex flex-row items-center justify-between w-full pointer-events-auto"
                     style={{
-                        padding: '8px 12px 8px 36px',
+                        padding: '12px 32px',
                         borderRadius: '100px',
                         border: scrolled
-                            ? '1px solid rgba(255,255,255,0.15)'
-                            : '1px solid rgba(255,255,255,0.05)',
+                            ? '1px solid rgba(255,255,255,0.18)'
+                            : '1px solid rgba(255,255,255,0.08)',
                         background: scrolled
-                            ? 'rgba(8, 10, 22, 0.75)'
-                            : 'rgba(255,255,255,0.05)',
-                        backdropFilter: 'blur(20px)',
-                        WebkitBackdropFilter: 'blur(20px)',
+                            ? 'rgba(8, 10, 22, 0.82)'
+                            : 'rgba(255,255,255,0.08)',
+                        backdropFilter: 'blur(24px)',
+                        WebkitBackdropFilter: 'blur(24px)',
                         boxShadow: scrolled
-                            ? '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)'
+                            ? '0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)'
                             : '0 4px 20px rgba(0,0,0,0.1)',
                         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                     }}
@@ -182,91 +177,167 @@ export default function Navbar() {
                             className="fixed inset-0 z-40 bg-black/40 backdrop-blur-md md:hidden"
                         />
 
-                        {/* Floating Terminal Island */}
+                        {/* Floating Terminal Island (100% HUD Masterpiece) */}
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.98 }}
-                            transition={{ duration: 0.3, ease: "easeOut" }}
-                            className="fixed inset-6 sm:inset-10 z-50 md:hidden flex flex-col bg-[#050505] rounded-[32px] border border-white/10 shadow-2xl text-white py-12 px-12 sm:px-20 overflow-y-auto"
+                            initial={{ opacity: 0, scale: 0.98, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.98, y: 20 }}
+                            transition={{ duration: 0.4, ease: "easeOut" }}
+                            className="fixed inset-4 sm:inset-10 z-50 md:hidden flex flex-col bg-[#050505]/98 backdrop-blur-3xl rounded-[32px] border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.6)] text-white py-10 px-7 sm:py-14 sm:px-14 overflow-hidden"
                         >
-                            {/* Inner Menu Header */}
-                            <div className="flex items-center justify-between w-full mb-12 shrink-0">
-                                <span className="text-white text-[11px] font-black tracking-[0.25em] uppercase opacity-90 select-none pl-4">
-                                    Kapil Dev
-                                </span>
+                            {/* Masterpiece: Holographic Scanline Sweep */}
+                            <motion.div
+                                animate={{ y: ["-100%", "200%"] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                                className="absolute inset-x-0 h-[25vh] bg-gradient-to-b from-transparent via-purple-500/5 to-transparent pointer-events-none z-0"
+                            />
+                            {/* HUD Details */}
+                            <div className="absolute inset-0 pointer-events-none opacity-[0.04] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+                            <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:25px_25px]" />
+
+                            {/* Inner Menu Header (HUD Refined) */}
+                            <div className="flex flex-col items-center justify-center w-full mb-8 shrink-0 relative z-10">
                                 <button
                                     onClick={() => setMobileOpen(false)}
                                     aria-label="Close menu"
-                                    style={{
-                                        width: '42px',
-                                        height: '42px',
-                                        borderRadius: '50%',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        background: 'rgba(255,255,255,0.05)',
-                                        border: '1px solid rgba(255,255,255,0.1)',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s ease',
-                                    }}
-                                    className="active:scale-90 active:bg-white/10"
+                                    className="absolute right-0 -top-2 flex flex-col items-center gap-1 group active:scale-90 transition-transform pl-12"
                                 >
-                                    <X size={18} color="#fff" />
+                                    <div className="relative w-10 h-10 flex items-center justify-center">
+                                        <motion.div
+                                            className="absolute inset-0 rounded-full border border-white/10 group-hover:border-purple-500/40"
+                                            animate={{ rotate: 180 }}
+                                            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                                        >
+                                            <div className="absolute -top-1 left-1/2 -translate-x-1/2 size-1.5 bg-purple-500 rounded-full blur-[1px]" />
+                                        </motion.div>
+                                        <div className="relative z-10 p-2.5 rounded-full bg-white/5 border border-white/10 shadow-2xl group-hover:bg-white/10 transition-colors">
+                                            <X size={18} color="#fff" />
+                                        </div>
+                                    </div>
+                                    <span className="text-[7px] font-mono tracking-[0.4em] text-white/20 uppercase">EXIT</span>
                                 </button>
+                                <div className="flex flex-col items-center gap-1.5 mt-2">
+                                    <div className="flex items-center justify-center gap-2">
+                                        <div className="size-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.8)] animate-pulse" />
+                                        <span className="text-[9px] font-mono tracking-[0.4em] uppercase text-purple-400/70">
+                                            ....
+                                        </span>
+                                    </div>
+                                    <span className="text-white text-2xl font-black tracking-[0.1em] uppercase select-none font-sans text-center">
+                                        Kapil Dev
+                                    </span>
+                                </div>
                             </div>
 
-                            {/* Structured Link Grid */}
-                            <div className="flex flex-col w-full flex-grow">
-                                <div className="w-full h-[1px] bg-white/10" />
+                            {/* Bio Data Section (Compact) */}
+                            <div className="flex flex-col items-center gap-10 mb-12 relative z-10 px-2 group text-center">
+                                <div className="flex flex-col items-center w-full">
+                                    <div className="h-px w-full max-w-[280px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent mb-6 relative">
+                                        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-[2px] bg-purple-500/60 shadow-[0_0_15px_rgba(168,85,247,0.6)]" />
+                                    </div>
+                                    <span className="text-base sm:text-lg text-white/80 font-medium tracking-wide leading-relaxed text-center px-4 max-w-[450px]">
+                                        Full Stack Developer & Technical Architect crafting high-performance digital interfaces.
+                                    </span>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-y-8 gap-x-6 w-full mt-4">
+                                    <div className="flex flex-col items-center gap-2">
+                                        <span className="text-[8px] font-mono text-purple-500/50 tracking-[0.4em] uppercase">LOCATION</span>
+                                        <span className="text-sm font-bold tracking-[0.2em] text-white">INDIA // IN</span>
+                                    </div>
+                                    <div className="flex flex-col items-center gap-2">
+                                        <span className="text-[8px] font-mono text-purple-500/50 tracking-[0.4em] uppercase">STATUS</span>
+                                        <div className="flex items-center justify-center gap-2">
+                                            <div className="size-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
+                                            <span className="text-sm font-bold tracking-[0.2em] text-emerald-400">ACTIVE</span>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col items-center col-span-2 w-full gap-5 pt-6 border-t border-white/5">
+                                        <span className="text-[8px] font-mono text-purple-500/50 tracking-[0.4em] uppercase">TECH_STACK</span>
+                                        <div className="flex flex-wrap justify-center gap-2.5 w-full">
+                                            {['REACT', 'NODE.JS', 'NEXT.JS', 'THREE.JS'].map(tech => (
+                                                <span key={tech} className="text-[9px] font-mono px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white/60 uppercase tracking-widest">{tech}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Structured Link Grid (Scrollable) */}
+                            <div className="flex flex-col w-full flex-grow overflow-y-auto mb-4 custom-scrollbar relative z-10 px-2">
                                 {NAV_LINKS.map((link, i) => (
                                     <div key={link.id} className="w-full">
                                         <motion.a
                                             href={`#${link.id}`}
                                             onClick={e => handleNavClick(e, link.id, setMobileOpen)}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -10 }}
-                                            transition={{ delay: 0.05 + (i * 0.05), ease: "easeOut" }}
-                                            className="w-full flex flex-col items-center justify-center py-6 sm:py-10 px-8 sm:px-12 group active:bg-white/5 transition-colors"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.1 + (i * 0.08), ease: "easeOut" }}
+                                            className="w-full flex flex-col items-center py-6 sm:py-8 group active:bg-white/5 transition-all relative text-center"
                                         >
-                                            <span className="text-[10px] sm:text-xs font-mono text-white/40 tracking-[0.3em] uppercase mb-2">
-                                                [ 0{i + 1} ]
+                                            <div className="absolute left-[-12px] top-1/2 -translate-y-1/2 w-[3px] h-0 bg-purple-500 group-hover:h-[60%] transition-all duration-300 rounded-r" />
+                                            <span className="text-[9px] font-mono text-white/20 tracking-[0.5em] uppercase mb-3 text-center">
+                                                PROCESS_0{i + 1}
                                             </span>
-                                            <span className="text-[28px] sm:text-4xl font-light tracking-widest uppercase text-white/80 group-hover:text-white transition-colors text-center">
+                                            <span className="text-3xl sm:text-4xl font-light tracking-[0.2em] uppercase text-white/40 group-hover:text-white transition-all duration-300 text-center">
                                                 {link.label}
                                             </span>
                                         </motion.a>
-                                        <div className="w-full h-[1px] bg-white/10" />
+                                        <div className="w-full h-px bg-white/5" />
                                     </div>
                                 ))}
-                                {/* Resume Link integrated next to Contact */}
-                                <div className="w-full">
+                                {/* Resume Section (Compact) */}
+                                <div className="w-full pt-8 pb-4">
                                     <motion.a
                                         href="https://drive.google.com/file/d/1PNoOM-hgEHcUPdvFzyM4crW9Q93exKFY/view"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        transition={{ delay: 0.05 + (NAV_LINKS.length * 0.05), ease: "easeOut" }}
-                                        className="w-full flex flex-col items-center justify-center py-6 sm:py-10 group bg-indigo-500/5 active:bg-indigo-500/10 transition-colors"
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.1 + (NAV_LINKS.length * 0.08), ease: "easeOut" }}
+                                        className="w-full flex flex-col items-center justify-center py-8 group px-8 overflow-hidden relative rounded-[20px] border border-indigo-500/20 bg-indigo-500/5 hover:bg-indigo-500/10 transition-colors text-center mt-4"
                                     >
-                                        <span className="text-[9px] font-mono text-indigo-400 tracking-[0.4em] uppercase mb-2">
-                                            [ File_05 ]
-                                        </span>
-                                        <div className="flex items-center gap-3">
-                                            <span className="text-[26px] sm:text-4xl font-black tracking-widest uppercase text-indigo-400">
-                                                Resume
+                                        <div className="flex flex-col items-center gap-3 relative z-10">
+                                            <span className="text-[9px] font-mono text-indigo-400/50 tracking-[0.5em] uppercase text-center">
+                                                EXT_REDIRECT
                                             </span>
-                                            <ArrowUpRight size={22} className="text-indigo-400 stroke-[3]" />
+                                            <div className="flex items-center gap-4">
+                                                <span className="text-2xl sm:text-3xl font-black tracking-widest uppercase text-indigo-400 group-hover:text-indigo-300 transition-colors text-center">
+                                                    Resume
+                                                </span>
+                                                <ArrowUpRight size={24} className="text-indigo-400 transform group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform relative z-10" />
+                                            </div>
                                         </div>
+                                        <div className="absolute inset-0 bg-indigo-500/0 group-hover:bg-indigo-500/10 transition-colors duration-500" />
                                     </motion.a>
-                                    <div className="w-full h-[1px] bg-white/10" />
                                 </div>
                             </div>
+                            <div className="mt-auto shrink-0 w-full pt-10 sm:pt-12 border-t border-white/5 relative z-10 flex flex-col items-center">
+                                <div className="flex flex-col items-center gap-6 mb-8">
+                                    <div className="flex items-center gap-3 font-mono text-[9px] sm:text-[10px] text-white/40 tracking-[0.4em] uppercase bg-white/5 px-4 py-2 rounded-lg border border-white/5">
+                                        <Clock size={12} className="text-purple-400" />
 
-
+                                    </div>
+                                    <div className="flex gap-10">
+                                        <a href="https://github.com/kapildev1012" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-all hover:scale-125">
+                                            <Github size={20} />
+                                        </a>
+                                        <a href="https://linkedin.com/in/kapil-dev-1012" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-all hover:scale-125">
+                                            <Linkedin size={20} />
+                                        </a>
+                                        <a href="https://instagram.com/kapildev_10" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white transition-all hover:scale-125">
+                                            <Instagram size={20} />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col items-center gap-3 font-mono text-[8px] sm:text-[9px] text-white/20 tracking-[0.5em] uppercase">
+                                    <div className="flex justify-center gap-8">
+                                        <div className="flex items-center gap-2.5"><Wifi size={10} className="text-green-500/50" /> <span>TX_STABLE</span></div>
+                                        <div className="flex items-center gap-2.5"><Battery size={10} className="text-blue-500/50" /> <span>PWR_98%</span></div>
+                                    </div>
+                                    <span className="mt-1 text-white/10">PRO_VER: 2.0.4 // HUD_READY</span>
+                                </div>
+                            </div>
                         </motion.div>
                     </>
                 )}

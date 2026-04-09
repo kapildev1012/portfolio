@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { motion } from "framer-motion"
 import { HomeIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
@@ -49,7 +50,18 @@ export default function SocialMagnet() {
     };
 
     return (
-        <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 hidden md:block">
+        <motion.div
+            initial={{ y: 0, opacity: 0, scale: 0 }}
+            animate={{ y: 0, opacity: 0, scale: 0 }}
+            transition={{
+                type: "spring",
+                stiffness: 100,
+                damping: 15,
+                mass: 1,
+                delay: 0.2
+            }}
+            className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2"
+        >
             <TooltipProvider>
                 <Dock>
                     <DockIcon>
@@ -98,6 +110,6 @@ export default function SocialMagnet() {
                     ))}
                 </Dock>
             </TooltipProvider>
-        </div>
+        </motion.div>
     );
 }

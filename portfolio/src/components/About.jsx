@@ -95,13 +95,13 @@ export default function About() {
             <div className="absolute inset-0 pointer-events-none flex flex-col justify-between py-20 overflow-hidden">
                 <motion.h2
                     style={{ x: xLeft, opacity: opacityBackground }}
-                    className="text-6xl md:text-[10rem] font-black text-white/5 md:text-white whitespace-nowrap leading-none select-none uppercase overflow-hidden"
+                    className="text-4xl md:text-[10rem] font-black text-white/5 md:text-white whitespace-nowrap leading-none select-none uppercase overflow-hidden"
                 >
                     Creative Engineer
                 </motion.h2>
                 <motion.h2
                     style={{ x: xRight, opacity: opacityBackground }}
-                    className="text-6xl md:text-[10rem] font-black text-white/5 md:text-white whitespace-nowrap leading-none select-none uppercase self-end overflow-hidden"
+                    className="text-4xl md:text-[10rem] font-black text-white/5 md:text-white whitespace-nowrap leading-none select-none uppercase self-end overflow-hidden"
                 >
                     MERN Specialist
                 </motion.h2>
@@ -140,7 +140,7 @@ export default function About() {
                         <span className="text-indigo-400 text-[10px] font-bold tracking-[0.2em] uppercase">Discovery</span>
                     </motion.div>
 
-                    <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter leading-[0.9] mb-20 md:mb-32">
+                    <motion.h2 variants={fadeUp} className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter leading-[0.9] mb-20 md:mb-32">
                         Get to know <span style={GRAD}>Me</span>
                     </motion.h2>
 
@@ -162,12 +162,12 @@ export default function About() {
                             <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover/left:bg-indigo-500/10 transition-colors duration-700" />
 
                             <div className="space-y-2">
-                                <h3 className="text-xl md:text-3xl font-bold text-white tracking-tight uppercase">
+                                <h3 className="text-lg md:text-3xl font-bold text-white tracking-tight uppercase">
                                     I am a <span style={GRAD}>Creative</span>
                                 </h3>
                                 <WordRotate
                                     words={['Full-Stack Engineer', 'MERN Stack Expert', 'Founder at Zippin', 'Tech Solutionist']}
-                                    className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter uppercase leading-[0.9]"
+                                    className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter uppercase leading-[0.9]"
                                     duration={3000}
                                 />
                             </div>
