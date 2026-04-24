@@ -67,7 +67,7 @@ export default function Hero() {
               LinkedIn
             </a>
             <a
-              href="https://drive.google.com/file/d/1PNoOM-hgEHcUPdvFzyM4crW9Q93exKFY/view"
+              href="https://drive.google.com/file/d/1RcR8AhLy9C1x4r4t_iYanBT3v9iCfzEx/view"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-premium btn-outline w-full sm:w-auto justify-center"

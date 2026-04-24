@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import { motion, useInView, animate, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import { Code2, Rocket, Users, Monitor, MapPin, GraduationCap, Briefcase, ArrowRight, Sparkles } from 'lucide-react';
 import { WordRotate } from "@/components/ui/word-rotate";
@@ -67,11 +67,11 @@ export default function About() {
     const mouseXSpring = useSpring(mouseX, { stiffness: 500, damping: 50 });
     const mouseYSpring = useSpring(mouseY, { stiffness: 500, damping: 50 });
 
-    const handleMouseMove = ({ currentTarget, clientX, clientY }) => {
+    const handleMouseMove = useCallback(({ currentTarget, clientX, clientY }) => {
         const { left, top } = currentTarget.getBoundingClientRect();
         mouseX.set(clientX - left);
         mouseY.set(clientY - top);
-    };
+    }, [mouseX, mouseY]);
 
     return (
         <section
@@ -95,37 +95,21 @@ export default function About() {
             <div className="absolute inset-0 pointer-events-none flex flex-col justify-between py-20 overflow-hidden">
                 <motion.h2
                     style={{ x: xLeft, opacity: opacityBackground }}
-                    className="text-6xl md:text-[10rem] font-black text-white/5 md:text-white whitespace-nowrap leading-none select-none uppercase overflow-hidden"
+                    className="text-5xl sm:text-7xl md:text-[10rem] font-black text-white/5 md:text-white whitespace-nowrap leading-none select-none uppercase overflow-hidden"
                 >
                     Creative Engineer
                 </motion.h2>
                 <motion.h2
                     style={{ x: xRight, opacity: opacityBackground }}
-                    className="text-6xl md:text-[10rem] font-black text-white/5 md:text-white whitespace-nowrap leading-none select-none uppercase self-end overflow-hidden"
+                    className="text-5xl sm:text-7xl md:text-[10rem] font-black text-white/5 md:text-white whitespace-nowrap leading-none select-none uppercase self-end overflow-hidden"
                 >
                     MERN Specialist
                 </motion.h2>
             </div>
 
-            {/* Geometric Orbs */}
-            <motion.div
-                animate={{
-                    y: [0, -20, 0],
-                    rotate: [0, 90, 0],
-                    scale: [1, 1.1, 1]
-                }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                className="absolute top-1/4 -left-20 w-80 h-80 bg-indigo-500/10 blur-[100px] rounded-full"
-            />
-            <motion.div
-                animate={{
-                    y: [0, 30, 0],
-                    rotate: [0, -45, 0],
-                    scale: [1, 1.2, 1]
-                }}
-                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 blur-[120px] rounded-full"
-            />
+            {/* Geometric Orbs — using CSS animation (browser can pause these off-screen) */}
+            <div className="about-orb about-orb-left" />
+            <div className="about-orb about-orb-right" />
 
             <div className="relative z-10 w-full section-wrap flex flex-col items-center">
                 <motion.div
@@ -140,11 +124,11 @@ export default function About() {
                         <span className="text-indigo-400 text-[10px] font-bold tracking-[0.2em] uppercase">Discovery</span>
                     </motion.div>
 
-                    <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tighter leading-[0.9] mb-20 md:mb-32">
+                    <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter leading-[1] mb-20 md:mb-32">
                         Get to know <span style={GRAD}>Me</span>
                     </motion.h2>
 
-                    <motion.p variants={fadeUp} className="text-white/40 text-base md:text-lg font-medium max-w-2xl leading-relaxed">
+                    <motion.p variants={fadeUp} className="text-white/40 text-base md:text-lg lg:text-xl font-medium max-w-2xl leading-relaxed">
                         Innovative Full-Stack Software Engineer (MERN) specializing in building scalable, high-performance web applications and enterprise solutions.
                     </motion.p>
                 </motion.div>
@@ -156,18 +140,18 @@ export default function About() {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            className="space-y-10 p-0 relative overflow-hidden group/left"
+                            className="space-y-10 p-0 relative overflow-hidden group/left w-full"
                         >
                             {/* Subtle Inner Glow */}
                             <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/5 blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover/left:bg-indigo-500/10 transition-colors duration-700" />
 
-                            <div className="space-y-2">
-                                <h3 className="text-xl md:text-3xl font-bold text-white tracking-tight uppercase">
+                            <div className="space-y-4">
+                                <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-white tracking-tight uppercase">
                                     I am a <span style={GRAD}>Creative</span>
                                 </h3>
                                 <WordRotate
                                     words={['Full-Stack Engineer', 'MERN Stack Expert', 'Founder at Zippin', 'Tech Solutionist']}
-                                    className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter uppercase leading-[0.9]"
+                                    className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase leading-[1.1] md:leading-[0.9]"
                                     duration={3000}
                                 />
                             </div>

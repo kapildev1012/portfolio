@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Highlighter } from "@/components/ui/highlighter";
-// --- 1. Import your project images ---
 
 import project1Img from '../assets/projects/project1.png';
 import project2Img from '../assets/projects/project2.png';
@@ -11,16 +10,42 @@ import project6Img from '../assets/projects/project6.png';
 import project7Img from '../assets/projects/project7.png';
 import project8Img from '../assets/projects/project8.png';
 import project9Img from '../assets/projects/project9.png';
-import { Truck } from 'lucide-react';
+import hotspotImg from '../assets/projects/hotspot.png';
 
 // --- Data for the projects ---
 const projectData = [
     {
+        title: 'Wellfire Ecommerce',
+        description: 'A full-stack MERN e-commerce storefront with real-time inventory, cart management, and secure checkout.',
+        videoUrl: null,
+        imageUrl: project4Img,
+        liveUrl: 'https://wellfire-new2.vercel.app',
+        repoUrl: 'https://github.com/kapildev1012/wellfire.new2',
+        tags: ['React', 'Node.js', 'MongoDB'],
+    },
+    {
+        title: 'Hotspot — SmartStock',
+        description: 'A multi-store inventory & order management system with real-time updates and JWT-based role authentication.',
+        videoUrl: null,
+        imageUrl: hotspotImg,
+        liveUrl: 'https://github.com/kapildev1012/hotspot.new',
+        repoUrl: 'https://github.com/kapildev1012/hotspot.new',
+        tags: ['React', 'Node.js', 'Socket.IO'],
+    },
+    {
+        title: 'Portfolio Website',
+        description: 'This very portfolio — built with React, GSAP, Spline 3D, Framer Motion, and Lenis smooth scroll.',
+        videoUrl: 'https://res.cloudinary.com/dktapziq9/video/upload/v1764395075/1764395026924189_ij9257.mov',
+        imageUrl: project7Img,
+        liveUrl: 'https://kapildev.netlify.app',
+        repoUrl: 'https://github.com/kapildev1012/React-Personal-Portfolio-main',
+        tags: ['React', 'GSAP', 'Spline'],
+    },
+    {
         title: 'Sahityaa Sangamm',
         description: 'A modern e-commerce platform built with Blade and Laravel.',
-        // Use your Cloudinary video URL here:
         videoUrl: 'https://res.cloudinary.com/dktapziq9/video/upload/v1764394626/1764393871242766_dqfnqn.mp4',
-        imageUrl: project1Img, // optional fallback
+        imageUrl: project1Img,
         liveUrl: 'https://sahityaasangamm.in',
         repoUrl: '#',
         tags: ['Blade', 'Laravel', 'MySQL'],

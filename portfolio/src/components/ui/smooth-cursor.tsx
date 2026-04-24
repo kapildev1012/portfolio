@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react"
+import { FC, useEffect, useRef } from "react"
 import { motion, useSpring } from "motion/react"
 
 interface Position {
@@ -25,13 +25,12 @@ const DefaultInvertCursor: FC = () => {
 export function SmoothCursor({
   cursor = <DefaultInvertCursor />,
   springConfig = {
-    damping: 45,
-    stiffness: 400,
-    mass: 1,
+    damping: 70,
+    stiffness: 900,
+    mass: 0.5,
     restDelta: 0.001,
   },
 }: SmoothCursorProps) {
-  const [isMoving, setIsMoving] = useState(false)
   const lastMousePos = useRef<Position>({ x: 0, y: 0 })
   const velocity = useRef<Position>({ x: 0, y: 0 })
   const lastUpdateTime = useRef(Date.now())
@@ -42,13 +41,13 @@ export function SmoothCursor({
   const cursorY = useSpring(0, springConfig)
   const rotation = useSpring(0, {
     ...springConfig,
-    damping: 60,
-    stiffness: 300,
+    damping: 80,
+    stiffness: 600,
   })
   const scale = useSpring(1, {
     ...springConfig,
-    stiffness: 500,
-    damping: 35,
+    stiffness: 800,
+    damping: 50,
   })
 
   useEffect(() => {
@@ -67,7 +66,11 @@ export function SmoothCursor({
       lastMousePos.current = currentPos
     }
 
-    const smoothMouseMove = (e: MouseEvent) => {
+    let moveTimeout: ReturnType<typeof setTimeout>
+
+    // Direct mousemove — NO requestAnimationFrame throttle gate
+    // The old code skipped frames when RAF was pending; now every event is processed
+    const onMouseMove = (e: MouseEvent) => {
       const currentPos = { x: e.clientX, y: e.clientY }
       updateVelocity(currentPos)
 
@@ -91,34 +94,21 @@ export function SmoothCursor({
         previousAngle.current = currentAngle
 
         scale.set(0.6)
-        setIsMoving(true)
 
-        const timeout = setTimeout(() => {
+        clearTimeout(moveTimeout)
+        moveTimeout = setTimeout(() => {
           scale.set(1)
-          setIsMoving(false)
         }, 150)
-
-        return () => clearTimeout(timeout)
       }
     }
 
-    let rafId: number
-    const throttledMouseMove = (e: MouseEvent) => {
-      if (rafId) return
-
-      rafId = requestAnimationFrame(() => {
-        smoothMouseMove(e)
-        rafId = 0
-      })
-    }
-
     document.body.style.cursor = "none"
-    window.addEventListener("mousemove", throttledMouseMove)
+    window.addEventListener("mousemove", onMouseMove, { passive: true })
 
     return () => {
-      window.removeEventListener("mousemove", throttledMouseMove)
+      window.removeEventListener("mousemove", onMouseMove)
       document.body.style.cursor = "auto"
-      if (rafId) cancelAnimationFrame(rafId)
+      clearTimeout(moveTimeout)
     }
   }, [cursorX, cursorY, rotation, scale])
 

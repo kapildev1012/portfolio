@@ -1,12 +1,10 @@
-"use client"
-
-import React from "react"
-import { HomeIcon } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip"
-import { Dock, DockIcon } from "@/components/ui/dock"
+import { motion } from "framer-motion";
+import { Dock, DockIcon } from "./ui/dock";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "./ui/tooltip";
+import { Separator } from "@radix-ui/react-separator";
+import { buttonVariants } from "./ui/button";
+import { Home as HomeIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const ICONS = {
     LinkedIn: (props) => (
@@ -49,55 +47,67 @@ export default function SocialMagnet() {
     };
 
     return (
-        <div className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2 hidden md:block">
+        <motion.div 
+            initial={{ y: 100, x: "-50%", opacity: 0 }}
+            animate={{ y: 0, x: "-50%", opacity: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.5 }}
+            className="fixed bottom-6 md:bottom-10 left-1/2 z-50 transform"
+        >
             <TooltipProvider>
-                <Dock>
+                <Dock className="bg-white/80 backdrop-blur-md border border-black/5 shadow-2xl rounded-full px-4 py-2 flex items-center gap-1 md:gap-2">
                     <DockIcon>
                         <Tooltip>
                             <TooltipTrigger asChild>
-                                <a
+                                <motion.a
                                     href="#"
                                     onClick={handleHomeClick}
+                                    whileHover={{ scale: 1.2, rotate: 5 }}
+                                    whileTap={{ scale: 0.9 }}
                                     aria-label="Home"
                                     className={cn(
                                         buttonVariants({ variant: "ghost", size: "icon" }),
-                                        "size-12 rounded-full"
+                                        "size-10 md:size-12 rounded-full hover:bg-black/5 transition-colors"
                                     )}
                                 >
-                                    <HomeIcon className="size-6" />
-                                </a>
+                                    <HomeIcon className="size-5 md:size-6" />
+                                </motion.a>
                             </TooltipTrigger>
                             <TooltipContent>
-                                <p>Home</p>
+                                <p className="text-[10px] font-black uppercase tracking-widest">Home</p>
                             </TooltipContent>
                         </Tooltip>
                     </DockIcon>
-                    <Separator orientation="vertical" className="h-full" />
-                    {SOCIALS.map((social) => (
+                    <Separator orientation="vertical" className="h-4 md:h-6 bg-black/10" />
+                    {SOCIALS.map((social, idx) => (
                         <DockIcon key={social.name}>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <a
+                                    <motion.a
                                         href={social.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
+                                        whileHover={{ scale: 1.2, rotate: -5, y: -4 }}
+                                        whileTap={{ scale: 0.9 }}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.7 + (idx * 0.1) }}
                                         aria-label={social.name}
                                         className={cn(
                                             buttonVariants({ variant: "ghost", size: "icon" }),
-                                            "size-12 rounded-full"
+                                            "size-10 md:size-12 rounded-full hover:bg-black/5 transition-colors"
                                         )}
                                     >
-                                        <social.icon className="size-6" />
-                                    </a>
+                                        <social.icon className="size-5 md:size-6" />
+                                    </motion.a>
                                 </TooltipTrigger>
                                 <TooltipContent>
-                                    <p>{social.name}</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest">{social.name}</p>
                                 </TooltipContent>
                             </Tooltip>
                         </DockIcon>
                     ))}
                 </Dock>
             </TooltipProvider>
-        </div>
+        </motion.div>
     );
 }
