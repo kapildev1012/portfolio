@@ -13,7 +13,7 @@
 
 ## 🌐 Live Demo
 
-🔗 **[kapildev.netlify.app](https://kapildev.netlify.app)**
+🔗 **[kapildev.netlify.app](https://portfolio-lhbr.onrender.com)**
 
 ---
 
